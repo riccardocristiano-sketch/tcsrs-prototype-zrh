@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCSRS — ZRH Safeguarding v2</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50: #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --teal-50: #E1F5EE;
+    --teal-600: #0F6E56;
+    --teal-800: #085041;
+    --gray-50: #F1EFE8;
+    --gray-100: #D3D1C7;
+    --gray-400: #888780;
+    --border: #e2e5ea;
+    --text: #111;
+    --text-2: #555;
+    --text-3: #999;
+    --surface: #f5f7fa;
+    --white: #fff;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    background: #e8edf3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem 4rem;
+    gap: 40px;
+  }
+
+  h1 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7a8a9a;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* ── Device shell ── */
+  .device-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .device {
+    width: 320px;
+    height: 640px;
+    background: var(--white);
+    border-radius: 44px;
+    border: 2px solid #1a1a1a;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .status-bar {
+    height: 44px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px 0 18px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+  }
+  .status-bar .time { font-size: 13px; font-weight: 600; color: var(--text); }
+  .status-bar .icons { display: flex; gap: 5px; align-items: center; }
+  .status-bar .icons svg { width: 14px; height: 14px; }
+  .dynamic-island {
+    position: absolute;
+    top: 10px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 26px;
+    background: #1a1a1a;
+    border-radius: 20px;
+  }
+
+  .screens {
+    width: 100%;
+    height: calc(640px - 44px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .screen.active { transform: translateX(0); }
+  .screen.exit    { transform: translateX(-100%); }
+  .screen.back-exit  { transform: translateX(100%); }
+
+  .screen-body { padding: 16px 20px 24px; flex: 1; display: flex; flex-direction: column; }
+
+  .progress {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    padding: 8px 0 4px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .2s; }
+  .dot.active { background: var(--blue-600); }
+  .dot.done   { background: var(--blue-100); }
+
+  .nav-bar {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    flex-shrink: 0;
+  }
+  .back-btn {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 13px; color: var(--blue-600);
+    cursor: pointer; padding: 4px 0;
+    background: none; border: none; font-family: inherit;
+  }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  .heading    { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.25; }
+  .subtext    { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+  .hint       { font-size: 11px; color: var(--text-3); line-height: 1.5; }
+  .section-label {
+    font-size: 10px; font-weight: 600; color: var(--text-3);
+    letter-spacing: .06em; text-transform: uppercase;
+    margin-bottom: 7px; margin-top: 4px;
+  }
+  .divider { height: 0.5px; background: var(--border); margin: 10px 0; }
+
+  .btn-primary {
+    width: 100%; background: var(--blue-600); color: var(--white);
+    border: none; border-radius: var(--radius); padding: 15px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: opacity .15s, transform .1s;
+    margin-top: auto; flex-shrink: 0;
+  }
+  .btn-primary:active { opacity: .85; transform: scale(.98); }
+  .btn-primary:disabled { opacity: .4; cursor: default; }
+
+  .btn-ghost {
+    width: 100%; background: transparent; color: var(--blue-600);
+    border: 1.5px solid var(--blue-100); border-radius: var(--radius);
+    padding: 13px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: inherit; transition: background .15s;
+  }
+
+  /* ── Screen 1 ── */
+  .s1-logo {
+    font-size: 10px; font-weight: 600; color: var(--text-3);
+    letter-spacing: .1em; text-align: center;
+    padding-bottom: 14px; border-bottom: 0.5px solid var(--border);
+  }
+  .s1-center {
+    flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0;
+  }
+  .s1-headline { font-size: 22px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.3; margin-bottom: 10px; }
+  .trust-row {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 11px; color: var(--text-3); margin-top: 14px; flex-wrap: wrap;
+  }
+  .trust-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gray-100); }
+
+  /* ── Screen 2 ── */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; flex: 1; }
+  .obs-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 12px 8px 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    cursor: pointer; transition: border-color .15s, background .15s; user-select: none;
+  }
+  .obs-card.sel { background: var(--blue-50); border-color: var(--blue-400); }
+  .obs-card .ic-wrap {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--white); display: flex; align-items: center; justify-content: center;
+  }
+  .obs-card.sel .ic-wrap { background: var(--blue-100); }
+  .obs-card .ic-wrap svg { width: 16px; height: 16px; }
+  .obs-card .lbl { font-size: 10px; font-weight: 500; color: var(--text-2); text-align: center; line-height: 1.3; }
+  .obs-card.sel .lbl { color: var(--blue-800); }
+  .tier-badge {
+    font-size: 10px; color: var(--blue-800); background: var(--blue-50);
+    border: 0.5px solid var(--blue-100); border-radius: 6px;
+    padding: 5px 10px; text-align: center; margin-bottom: 8px; flex-shrink: 0;
+  }
+
+  /* ── Screen 3 — Location ── */
+  .loc-auto-card {
+    background: var(--blue-50); border: 1.5px solid var(--blue-100);
+    border-radius: var(--radius); padding: 14px;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .loc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue-600); flex-shrink: 0; }
+  .loc-name { font-size: 14px; font-weight: 600; color: var(--blue-800); }
+  .loc-sub  { font-size: 11px; color: var(--blue-600); margin-top: 1px; }
+  .auto-badge {
+    margin-left: auto; font-size: 9px; font-weight: 600;
+    background: var(--blue-100); color: var(--blue-800);
+    border-radius: 5px; padding: 3px 7px; letter-spacing: .04em; flex-shrink: 0;
+  }
+  .override-link {
+    font-size: 11px; color: var(--text-3); text-align: center;
+    text-decoration: underline; text-underline-offset: 2px;
+    cursor: pointer; padding: 5px 0 8px; display: block;
+    background: none; border: none; width: 100%; font-family: inherit;
+  }
+
+  /* Override panel */
+  .override-panel {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius); padding: 12px; margin-bottom: 8px; display: none;
+  }
+  .override-panel.open { display: block; }
+
+  /* Zone selector */
+  .zone-tabs {
+    display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .zone-tabs::-webkit-scrollbar { display: none; }
+  .zone-tab {
+    flex-shrink: 0; font-size: 10px; font-weight: 600;
+    padding: 5px 10px; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--white);
+    color: var(--text-2); cursor: pointer; transition: all .15s;
+    white-space: nowrap;
+  }
+  .zone-tab.active { background: var(--blue-600); color: var(--white); border-color: var(--blue-600); }
+
+  .gate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 6px; }
+  .gate-btn {
+    background: var(--white); border: 0.5px solid var(--border);
+    border-radius: 7px; font-size: 9px; font-weight: 600;
+    color: var(--text-2); text-align: center; padding: 7px 3px;
+    cursor: pointer; transition: all .12s; line-height: 1.2;
+  }
+  .gate-btn.sel { background: var(--blue-50); border-color: var(--blue-400); color: var(--blue-800); }
+  .gate-btn:disabled { opacity: .35; cursor: default; }
+
+  .zone-info {
+    font-size: 9px; color: var(--text-3); background: var(--white);
+    border-radius: 6px; padding: 5px 8px; margin-bottom: 8px;
+    border: 0.5px solid var(--border); line-height: 1.5;
+  }
+  .zone-info .badge {
+    display: inline-block; font-size: 8px; font-weight: 600;
+    padding: 1px 5px; border-radius: 4px; margin-right: 4px;
+  }
+  .badge-sch { background: #e8f5e9; color: #1b5e20; }
+  .badge-non { background: #fff3e0; color: #e65100; }
+  .badge-land { background: #f3e5f5; color: #4a148c; }
+
+  /* Time toggle */
+  .time-row { display: flex; gap: 8px; margin: 10px 0 6px; }
+  .time-btn {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px;
+    font-size: 12px; font-weight: 500; color: var(--text-2);
+    text-align: center; cursor: pointer; transition: all .12s; font-family: inherit;
+  }
+  .time-btn.sel { background: var(--blue-50); border-color: var(--blue-400); color: var(--blue-800); }
+
+  /* ── Screen 4 ── */
+  .s4-center {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; padding: 0 8px;
+  }
+  .check-ring {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--teal-50); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .check-ring svg { width: 28px; height: 28px; }
+  .s4-head { font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 10px; }
+  .s4-sub { font-size: 13px; color: var(--text-2); line-height: 1.6; margin-bottom: 20px; }
+  .s4-info-box {
+    background: var(--teal-50); border-radius: var(--radius-sm);
+    padding: 10px 14px; width: 100%; font-size: 11px;
+    color: var(--teal-800); line-height: 1.6; text-align: center;
+  }
+  .s4-buttons { display: flex; flex-direction: column; gap: 10px; width: 100%; padding: 20px 20px 24px; flex-shrink: 0; }
+
+  /* Screen 4 optional fields */
+  .s4-field-group { display: flex; flex-direction: column; gap: 5px; padding: 10px 0 6px; }
+  .s4-field-label {
+    font-size: 12px; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  }
+  .s4-optional {
+    font-size: 9px; font-weight: 500; color: var(--text-3);
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 4px; padding: 2px 6px; letter-spacing: .03em;
+  }
+  .s4-field-hint { font-size: 10px; color: var(--text-3); line-height: 1.4; }
+  .s4-phone-wrap {
+    display: flex; align-items: center;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--surface); overflow: hidden; transition: border-color .15s;
+  }
+  .s4-phone-wrap:focus-within { border-color: var(--blue-400); background: var(--white); }
+  .s4-phone-prefix {
+    padding: 9px 8px 9px 12px;
+    font-size: 13px; font-weight: 600; color: var(--text-2);
+    border-right: 1px solid var(--border); background: var(--white); flex-shrink: 0;
+  }
+  .s4-input {
+    width: 100%; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 9px 12px; font-size: 13px; color: var(--text);
+    font-family: inherit; outline: none; transition: border-color .15s, background .15s;
+  }
+  .s4-input:focus { border-color: var(--blue-400); background: var(--white); }
+  .s4-phone-input {
+    border: none; border-radius: 0; background: transparent; padding: 9px 10px;
+    flex: 1; min-width: 0;
+  }
+  .s4-phone-input:focus { border: none; background: transparent; }
+  .s4-textarea { resize: none; line-height: 1.5; }
+
+  .device-label { font-size: 12px; color: #7a8a9a; letter-spacing: .05em; font-weight: 500; }
+
+  /* ── QR DB panel ── */
+  .db-panel {
+    width: 100%;
+    max-width: 900px;
+    background: #1a1f2e;
+    border-radius: 16px;
+    padding: 24px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .db-panel h2 {
+    font-size: 11px; color: #7a8fa8; letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: 16px; font-family: inherit;
+  }
+  .db-zones { display: flex; flex-direction: column; gap: 16px; }
+  .db-zone { }
+  .db-zone-header {
+    font-size: 10px; font-weight: 700; color: #4fc3f7;
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 8px; padding-bottom: 6px;
+    border-bottom: 1px solid #2a3347;
+  }
+  .db-zone-header span { color: #546e8a; font-weight: 400; margin-left: 8px; }
+  .db-nodes { display: flex; flex-wrap: wrap; gap: 6px; }
+  .db-node {
+    background: #232a3e; border: 1px solid #2e3a50;
+    border-radius: 8px; padding: 7px 10px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .db-node .node-id { font-size: 9px; color: #4fc3f7; font-weight: 700; }
+  .db-node .node-name { font-size: 10px; color: #cdd9e5; font-weight: 500; }
+  .db-node .node-meta { font-size: 8px; color: #546e8a; }
+  .db-node .node-qr {
+    font-size: 8px; color: #3d5a73;
+    font-style: italic; margin-top: 2px;
+  }
+  .stat-row {
+    display: flex; gap: 20px; margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid #2a3347;
+  }
+  .stat { text-align: center; }
+  .stat .n { font-size: 22px; font-weight: 700; color: #4fc3f7; }
+  .stat .l { font-size: 9px; color: #546e8a; text-transform: uppercase; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+
+<h1>TCSRS — ZRH Prototype v2 · Real Gate Taxonomy</h1>
+
+<div class="device-wrap">
+  <div class="device">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="dynamic-island"></div>
+      <div class="icons">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M1 5c1.9-2.5 4.5-4 7-4s5.1 1.5 7 4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><path d="M3.5 7.5C5 5.8 6.4 5 8 5s3 .8 4.5 2.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><path d="M6 10c.6-.7 1.2-1 2-1s1.4.3 2 1" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="12.5" r="1" fill="#111"/></svg>
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="11" height="8" rx="1.5" stroke="#111" stroke-width="1.3"/><path d="M13.5 7v2.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5" rx=".5" fill="#111"/></svg>
+      </div>
+    </div>
+
+    <div class="screens">
+
+      <!-- SCREEN 1: LANDING -->
+      <div class="screen active" id="s1">
+        <div class="screen-body">
+          <div class="s1-logo">ZRH SAFEGUARDING</div>
+          <div class="s1-center">
+            <div class="s1-headline">Not sure if something is right?</div>
+            <p class="subtext" style="text-align:center; margin-bottom:28px;">Share a quick observation.<br>No details needed. Strictly confidential.</p>
+            <button class="btn-primary" onclick="goTo(2)" style="margin-top:0; margin-bottom:14px;">Start</button>
+            <div class="trust-row">
+              <span>Under 2 minutes</span>
+              <span class="trust-dot"></span>
+              <span>No personal data</span>
+              <span class="trust-dot"></span>
+              <span>Swiss privacy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: INDICATORS -->
+      <div class="screen" id="s2">
+        <div class="nav-bar">
+          <button class="back-btn" onclick="goBack(1)">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+        </div>
+        <div class="progress">
+          <div class="dot done"></div><div class="dot active"></div><div class="dot"></div>
+        </div>
+        <div class="screen-body" style="padding-top:10px;">
+          <div class="heading" style="margin-bottom:4px;">What did you observe?</div>
+          <p class="hint" style="margin-bottom:0;">Select all that apply</p>
+          <div class="card-grid" id="cardGrid">
+            <div class="obs-card" data-tier="1" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M3.5 17c0-3.59 2.91-6.5 6.5-6.5s6.5 2.91 6.5 6.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 7.5l1.5 1-1.5 1" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="lbl">Scripted travel answers</span>
+            </div>
+            <div class="obs-card" data-tier="1" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="7" cy="5.5" r="2.8" stroke="#185FA5" stroke-width="1.4"/><circle cx="14" cy="5" r="2.2" stroke="#185FA5" stroke-width="1.4"/><path d="M2 16c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 12c1.5 0 3.5.9 3.5 4" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              <span class="lbl">Third party speaks for them</span>
+            </div>
+            <div class="obs-card" data-tier="1" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M5 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M6 12l-2 1.5M14 12l2 1.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              <span class="lbl">Movement restricted</span>
+            </div>
+            <div class="obs-card" data-tier="2" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M4.5 17c0-3.04 2.46-5.5 5.5-5.5s5.5 2.46 5.5 5.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9l-1 2M12 9l1 2" stroke="#185FA5" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+              <span class="lbl">Minor in visible distress</span>
+            </div>
+            <div class="obs-card" data-tier="1" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><path d="M3 13l5-5 3 3 6-7" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="4" r="2" stroke="#185FA5" stroke-width="1.3"/></svg></div>
+              <span class="lbl">Avoids authority figures</span>
+            </div>
+            <div class="obs-card" data-tier="2" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><path d="M5 6h10M5 10h7M5 14h5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/><circle cx="15" cy="14" r="3" stroke="#185FA5" stroke-width="1.3"/><path d="M15 13v1.5l1 1" stroke="#185FA5" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+              <span class="lbl">Signs of physical branding</span>
+            </div>
+            <div class="obs-card" data-tier="1" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="11" rx="2" stroke="#185FA5" stroke-width="1.3"/><path d="M7 14v3M13 14v3M5 17h10" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+              <span class="lbl">No personal belongings</span>
+            </div>
+            <div class="obs-card" data-tier="2" onclick="toggleCard(this)">
+              <div class="ic-wrap"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="5" r="3" stroke="#185FA5" stroke-width="1.4"/><path d="M3 17c0-3.31 2.69-6 6-6" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M14 10v5M14 17v.5" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <span class="lbl">Adult directing a child</span>
+            </div>
+          </div>
+          <div class="tier-badge" id="tierBadge">Select observations above</div>
+          <button class="btn-primary" id="continueBtn" onclick="goTo(3)" disabled style="margin-top:6px;">Continue</button>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: LOCATION & TIME -->
+      <div class="screen" id="s3">
+        <div class="nav-bar">
+          <button class="back-btn" onclick="goBack(2)">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+        </div>
+        <div class="progress">
+          <div class="dot done"></div><div class="dot done"></div><div class="dot active"></div>
+        </div>
+        <div class="screen-body" style="padding-top:10px;">
+          <div class="heading" style="margin-bottom:12px;">Where is this?</div>
+
+          <!-- Auto-detected from QR -->
+          <div class="loc-auto-card" id="autoCard">
+            <div class="loc-dot"></div>
+            <div>
+              <div class="loc-name" id="autoLocName">Gate B32 · Pier B</div>
+              <div class="loc-sub" id="autoLocSub">Detected from QR scan · Schengen</div>
+            </div>
+            <div class="auto-badge">AUTO</div>
+          </div>
+
+          <button class="override-link" id="overrideToggle" onclick="toggleOverride()">Not here? Change location</button>
+
+          <!-- Override panel -->
+          <div class="override-panel" id="overridePanel">
+            <!-- Zone tabs -->
+            <div class="zone-tabs" id="zoneTabs"></div>
+            <!-- Zone info strip -->
+            <div class="zone-info" id="zoneInfo"></div>
+            <!-- Gate buttons -->
+            <div class="gate-grid" id="gateGrid"></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="section-label">When?</div>
+          <div class="time-row">
+            <button class="time-btn sel" id="timeNow" onclick="selTime('now')">Right now</button>
+            <button class="time-btn" id="timeEarlier" onclick="selTime('earlier')">Earlier today</button>
+          </div>
+
+          <div class="hint" id="tierInfo" style="text-align:center; margin-bottom:8px;"></div>
+          <button class="btn-primary" onclick="goTo(4)">Submit observation</button>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: CONFIRMATION -->
+      <div class="screen" id="s4">
+        <div class="screen-body" style="padding-top:20px; gap:0;">
+
+          <!-- Check + message -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:18px;">
+            <div class="check-ring">
+              <svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#0F6E56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="s4-head">Thanks. This will be reviewed by airport security.</div>
+            <div class="s4-info-box" style="margin-top:4px;">
+              ZRH Safeguarding · On-premise · Swiss privacy<br>
+              Raw data deleted within 12 hours
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Optional: contact -->
+          <div class="s4-field-group">
+            <div class="s4-field-label">
+              Do you want us to contact you?
+              <span class="s4-optional">Optional</span>
+            </div>
+            <p class="s4-field-hint">Only used if follow-up is needed. Never shared.</p>
+            <div class="s4-phone-wrap">
+              <span class="s4-phone-prefix">+</span>
+              <input
+                class="s4-input s4-phone-input"
+                type="tel"
+                id="phoneInput"
+                placeholder="41 79 123 45 67"
+                inputmode="tel"
+              />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Optional: freetext -->
+          <div class="s4-field-group">
+            <div class="s4-field-label">
+              Anything else you want to tell us?
+              <span class="s4-optional">Optional</span>
+            </div>
+            <p class="s4-field-hint">Description, clothing, direction of travel, etc.</p>
+            <textarea
+              class="s4-input s4-textarea"
+              id="notesInput"
+              placeholder="e.g. Blue jacket, heading toward Gate B32…"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <button class="btn-primary" onclick="resetApp()" style="margin-top:16px;">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="device-label" id="screenLabel">Screen 1 — Landing</div>
+</div>
+
+<!-- QR NODE DATABASE PANEL -->
+<div class="db-panel" id="dbPanel">
+  <h2>ZRH QR Node Database · <span style="color:#4fc3f7" id="totalNodes"></span> nodes</h2>
+  <div class="db-zones" id="dbZones"></div>
+  <div class="stat-row" id="statRow"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   ZRH LOCATION DATABASE
+   Based on real ZRH gate taxonomy:
+   - Pier A: Gates A51–A86 (Schengen only)
+   - Pier B: Gates B01–B48 (Schengen)
+   - Pier D: Gates D01–D30 (Non-Schengen, same physical pier as B)
+   - Pier E: Gates E01–E70 (Non-Schengen, midfield via Skymetro)
+   - Airside Centre: central hub pre-gate
+   - Landside: check-in / arrivals / public areas
+═══════════════════════════════════════════════════ */
+
+const ZRH_NODES = [
+  {
+    zone: "Landside",
+    zoneCode: "LAND",
+    schengen: "landside",
+    desc: "Public area — no boarding pass required",
+    nodes: [
+      { id: "LAND-CHK1", name: "Check-in Hall 1", gate: null,  qr: "ZRH-TCSRS-LAND-CHK1" },
+      { id: "LAND-CHK2", name: "Check-in Hall 2", gate: null,  qr: "ZRH-TCSRS-LAND-CHK2" },
+      { id: "LAND-CHK3", name: "Check-in Hall 3", gate: null,  qr: "ZRH-TCSRS-LAND-CHK3" },
+      { id: "LAND-ARR1", name: "Arrivals Hall 1", gate: null,  qr: "ZRH-TCSRS-LAND-ARR1" },
+      { id: "LAND-ARR2", name: "Arrivals Hall 2", gate: null,  qr: "ZRH-TCSRS-LAND-ARR2" },
+      { id: "LAND-TAXI", name: "Ground Transport / Taxi", gate: null, qr: "ZRH-TCSRS-LAND-TAXI" },
+      { id: "LAND-RAIL", name: "Airport Railway Station", gate: null, qr: "ZRH-TCSRS-LAND-RAIL" },
+    ]
+  },
+  {
+    zone: "Airside Centre",
+    zoneCode: "ASC",
+    schengen: "pre-split",
+    desc: "Post-security hub before Schengen/non-Schengen split",
+    nodes: [
+      { id: "ASC-SEC-A",  name: "Security — Pier A entry", gate: null, qr: "ZRH-TCSRS-ASC-SEC-A" },
+      { id: "ASC-SEC-BD", name: "Security — Pier B/D entry", gate: null, qr: "ZRH-TCSRS-ASC-SEC-BD" },
+      { id: "ASC-SKY",    name: "Skymetro Platform (Dock E)", gate: null, qr: "ZRH-TCSRS-ASC-SKY" },
+      { id: "ASC-CENT",   name: "Airside Centre — Central", gate: null, qr: "ZRH-TCSRS-ASC-CENT" },
+      { id: "ASC-LOUNGE", name: "Airside Centre — Lounge Level", gate: null, qr: "ZRH-TCSRS-ASC-LOUNGE" },
+    ]
+  },
+  {
+    zone: "Pier A",
+    zoneCode: "A",
+    schengen: "schengen",
+    desc: "Schengen flights only · Gates A51–A86",
+    nodes: [
+      { id: "A-51",  name: "Gate A51",  gate: "A51",  qr: "ZRH-TCSRS-A-51" },
+      { id: "A-53",  name: "Gate A53",  gate: "A53",  qr: "ZRH-TCSRS-A-53" },
+      { id: "A-55",  name: "Gate A55",  gate: "A55",  qr: "ZRH-TCSRS-A-55" },
+      { id: "A-57",  name: "Gate A57",  gate: "A57",  qr: "ZRH-TCSRS-A-57" },
+      { id: "A-60",  name: "Gate A60",  gate: "A60",  qr: "ZRH-TCSRS-A-60" },
+      { id: "A-63",  name: "Gate A63",  gate: "A63",  qr: "ZRH-TCSRS-A-63" },
+      { id: "A-66",  name: "Gate A66",  gate: "A66",  qr: "ZRH-TCSRS-A-66" },
+      { id: "A-70",  name: "Gate A70",  gate: "A70",  qr: "ZRH-TCSRS-A-70" },
+      { id: "A-72",  name: "Gate A72",  gate: "A72",  qr: "ZRH-TCSRS-A-72" },
+      { id: "A-74",  name: "Gate A74",  gate: "A74",  qr: "ZRH-TCSRS-A-74" },
+      { id: "A-76",  name: "Gate A76",  gate: "A76",  qr: "ZRH-TCSRS-A-76" },
+      { id: "A-80",  name: "Gate A80",  gate: "A80",  qr: "ZRH-TCSRS-A-80" },
+      { id: "A-83",  name: "Gate A83",  gate: "A83",  qr: "ZRH-TCSRS-A-83" },
+      { id: "A-86",  name: "Gate A86",  gate: "A86",  qr: "ZRH-TCSRS-A-86" },
+      { id: "A-REST",name: "Pier A — Restrooms (mid)", gate: null, qr: "ZRH-TCSRS-A-REST" },
+    ]
+  },
+  {
+    zone: "Pier B",
+    zoneCode: "B",
+    schengen: "schengen",
+    desc: "Schengen flights · Gates B01–B48",
+    nodes: [
+      { id: "B-04",  name: "Gate B04",  gate: "B04",  qr: "ZRH-TCSRS-B-04" },
+      { id: "B-08",  name: "Gate B08",  gate: "B08",  qr: "ZRH-TCSRS-B-08" },
+      { id: "B-12",  name: "Gate B12",  gate: "B12",  qr: "ZRH-TCSRS-B-12" },
+      { id: "B-16",  name: "Gate B16",  gate: "B16",  qr: "ZRH-TCSRS-B-16" },
+      { id: "B-20",  name: "Gate B20",  gate: "B20",  qr: "ZRH-TCSRS-B-20" },
+      { id: "B-24",  name: "Gate B24",  gate: "B24",  qr: "ZRH-TCSRS-B-24" },
+      { id: "B-28",  name: "Gate B28",  gate: "B28",  qr: "ZRH-TCSRS-B-28" },
+      { id: "B-32",  name: "Gate B32",  gate: "B32",  qr: "ZRH-TCSRS-B-32" },
+      { id: "B-36",  name: "Gate B36",  gate: "B36",  qr: "ZRH-TCSRS-B-36" },
+      { id: "B-40",  name: "Gate B40",  gate: "B40",  qr: "ZRH-TCSRS-B-40" },
+      { id: "B-44",  name: "Gate B44",  gate: "B44",  qr: "ZRH-TCSRS-B-44" },
+      { id: "B-48",  name: "Gate B48",  gate: "B48",  qr: "ZRH-TCSRS-B-48" },
+      { id: "B-REST",name: "Pier B — Restrooms (mid)", gate: null, qr: "ZRH-TCSRS-B-REST" },
+    ]
+  },
+  {
+    zone: "Pier D",
+    zoneCode: "D",
+    schengen: "non-schengen",
+    desc: "Non-Schengen · Gates D01–D30 (same pier as B, post passport control)",
+    nodes: [
+      { id: "D-02",  name: "Gate D02",  gate: "D02",  qr: "ZRH-TCSRS-D-02" },
+      { id: "D-06",  name: "Gate D06",  gate: "D06",  qr: "ZRH-TCSRS-D-06" },
+      { id: "D-10",  name: "Gate D10",  gate: "D10",  qr: "ZRH-TCSRS-D-10" },
+      { id: "D-14",  name: "Gate D14",  gate: "D14",  qr: "ZRH-TCSRS-D-14" },
+      { id: "D-18",  name: "Gate D18",  gate: "D18",  qr: "ZRH-TCSRS-D-18" },
+      { id: "D-22",  name: "Gate D22",  gate: "D22",  qr: "ZRH-TCSRS-D-22" },
+      { id: "D-26",  name: "Gate D26",  gate: "D26",  qr: "ZRH-TCSRS-D-26" },
+      { id: "D-30",  name: "Gate D30",  gate: "D30",  qr: "ZRH-TCSRS-D-30" },
+      { id: "D-PASS",name: "Pier D — Passport Control", gate: null, qr: "ZRH-TCSRS-D-PASS" },
+      { id: "D-REST",name: "Pier D — Restrooms", gate: null, qr: "ZRH-TCSRS-D-REST" },
+    ]
+  },
+  {
+    zone: "Dock E (Midfield)",
+    zoneCode: "E",
+    schengen: "non-schengen",
+    desc: "Non-Schengen international · Gates E01–E70 · Reached via Skymetro",
+    nodes: [
+      { id: "E-01",  name: "Gate E01",  gate: "E01",  qr: "ZRH-TCSRS-E-01" },
+      { id: "E-05",  name: "Gate E05",  gate: "E05",  qr: "ZRH-TCSRS-E-05" },
+      { id: "E-10",  name: "Gate E10",  gate: "E10",  qr: "ZRH-TCSRS-E-10" },
+      { id: "E-15",  name: "Gate E15",  gate: "E15",  qr: "ZRH-TCSRS-E-15" },
+      { id: "E-19",  name: "Gate E19",  gate: "E19",  qr: "ZRH-TCSRS-E-19" },
+      { id: "E-25",  name: "Gate E25",  gate: "E25",  qr: "ZRH-TCSRS-E-25" },
+      { id: "E-30",  name: "Gate E30",  gate: "E30",  qr: "ZRH-TCSRS-E-30" },
+      { id: "E-35",  name: "Gate E35",  gate: "E35",  qr: "ZRH-TCSRS-E-35" },
+      { id: "E-40",  name: "Gate E40",  gate: "E40",  qr: "ZRH-TCSRS-E-40" },
+      { id: "E-45",  name: "Gate E45",  gate: "E45",  qr: "ZRH-TCSRS-E-45" },
+      { id: "E-50",  name: "Gate E50",  gate: "E50",  qr: "ZRH-TCSRS-E-50" },
+      { id: "E-55",  name: "Gate E55",  gate: "E55",  qr: "ZRH-TCSRS-E-55" },
+      { id: "E-60",  name: "Gate E60",  gate: "E60",  qr: "ZRH-TCSRS-E-60" },
+      { id: "E-65",  name: "Gate E65",  gate: "E65",  qr: "ZRH-TCSRS-E-65" },
+      { id: "E-70",  name: "Gate E70",  gate: "E70",  qr: "ZRH-TCSRS-E-70" },
+      { id: "E-SKY", name: "Dock E — Skymetro Arrival", gate: null, qr: "ZRH-TCSRS-E-SKY" },
+      { id: "E-REST",name: "Dock E — Restrooms (N)", gate: null, qr: "ZRH-TCSRS-E-REST-N" },
+      { id: "E-REST2",name: "Dock E — Restrooms (S)", gate: null, qr: "ZRH-TCSRS-E-REST-S" },
+    ]
+  }
+];
+
+/* Simulated QR-injected location (what a real scan would supply) */
+const SIMULATED_QR = {
+  nodeId: "B-32",
+  zoneName: "Pier B",
+  nodeName: "Gate B32",
+  schengen: "schengen",
+  qrCode: "ZRH-TCSRS-B-32"
+};
+
+/* ═══════════════════════════════════════════════
+   SCREEN NAVIGATION
+═══════════════════════════════════════════════ */
+let currentScreen = 1;
+const screenNames = ['','Screen 1 — Landing','Screen 2 — Indicators','Screen 3 — Location & Time','Screen 4 — Confirmation'];
+
+function goTo(n) {
+  const from = document.getElementById('s' + currentScreen);
+  const to   = document.getElementById('s' + n);
+  from.classList.remove('active');
+  from.classList.add('exit');
+  to.style.transform = 'translateX(100%)';
+  to.classList.remove('back-exit','exit');
+  requestAnimationFrame(() => { to.classList.add('active'); to.style.transform = ''; });
+  setTimeout(() => from.classList.remove('exit'), 340);
+  currentScreen = n;
+  document.getElementById('screenLabel').textContent = screenNames[n];
+  if (n === 3) updateTierInfo();
+}
+
+function goBack(n) {
+  const from = document.getElementById('s' + currentScreen);
+  const to   = document.getElementById('s' + n);
+  from.classList.remove('active');
+  from.classList.add('back-exit');
+  to.style.transform = 'translateX(-100%)';
+  to.classList.remove('exit','back-exit','active');
+  requestAnimationFrame(() => { to.style.transform = ''; to.classList.add('active'); });
+  setTimeout(() => from.classList.remove('back-exit'), 340);
+  currentScreen = n;
+  document.getElementById('screenLabel').textContent = screenNames[n];
+}
+
+function resetApp() {
+  document.querySelectorAll('.screen').forEach((s,i) => {
+    s.classList.remove('active','exit','back-exit');
+    s.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)';
+    if (i === 0) s.classList.add('active');
+  });
+  document.querySelectorAll('.obs-card').forEach(c => c.classList.remove('sel'));
+  updateTierBadge();
+  closeOverride();
+  selTime('now');
+  currentScreen = 1;
+  document.getElementById('screenLabel').textContent = screenNames[1];
+}
+
+/* ═══════════════════════════════════════════════
+   INDICATOR CARDS
+═══════════════════════════════════════════════ */
+function toggleCard(el) { el.classList.toggle('sel'); updateTierBadge(); }
+function countSelected() { return document.querySelectorAll('#cardGrid .obs-card.sel').length; }
+function maxTier() {
+  let t = 0;
+  document.querySelectorAll('#cardGrid .obs-card.sel').forEach(c => t = Math.max(t, parseInt(c.dataset.tier || 1)));
+  return t;
+}
+function calcTier(n) { return n >= 3 ? 3 : maxTier() >= 2 ? 2 : 1; }
+
+function updateTierBadge() {
+  const n = countSelected();
+  const badge = document.getElementById('tierBadge');
+  const btn   = document.getElementById('continueBtn');
+  if (n === 0) {
+    badge.textContent = 'Select observations above';
+    badge.style.cssText = '';
+    btn.disabled = true;
+    return;
+  }
+  const tier = calcTier(n);
+  const msgs   = ['','Trend log','Queued for triage','Immediate alert'];
+  const colors = ['','#E6F1FB','#fef3c7','#fee2e2'];
+  const borders= ['','#B5D4F4','#fbbf24','#fca5a5'];
+  const texts  = ['','#0C447C','#92400e','#991b1b'];
+  badge.textContent = `${n} indicator${n>1?'s':''} · Tier ${tier} — ${msgs[tier]}`;
+  badge.style.background  = colors[tier];
+  badge.style.borderColor = borders[tier];
+  badge.style.color       = texts[tier];
+  btn.disabled = false;
+}
+
+function updateTierInfo() {
+  const n = countSelected();
+  const el = document.getElementById('tierInfo');
+  if (!n) { el.textContent = ''; return; }
+  const tier = calcTier(n);
+  const msgs = ['','Tier 1 — trend log','Tier 2 — queued for triage','Tier 3 — immediate alert'];
+  el.textContent = `${n} indicator${n>1?'s':''} · ${msgs[tier]}`;
+}
+
+/* ═══════════════════════════════════════════════
+   LOCATION — QR AUTO-INJECT
+═══════════════════════════════════════════════ */
+function initAutoLocation() {
+  const schLabel = SIMULATED_QR.schengen === 'schengen' ? 'Schengen' :
+                   SIMULATED_QR.schengen === 'non-schengen' ? 'Non-Schengen' : 'Landside';
+  document.getElementById('autoLocName').textContent = `${SIMULATED_QR.nodeName} · ${SIMULATED_QR.zoneName}`;
+  document.getElementById('autoLocSub').textContent = `Detected from QR scan · ${schLabel}`;
+}
+
+/* ═══════════════════════════════════════════════
+   LOCATION — OVERRIDE PANEL
+═══════════════════════════════════════════════ */
+let overrideOpen = false;
+let selectedZoneIndex = 0;
+let selectedNodeId = null;
+
+function toggleOverride() {
+  overrideOpen = !overrideOpen;
+  const panel = document.getElementById('overridePanel');
+  const autoCard = document.getElementById('autoCard');
+  const btn = document.getElementById('overrideToggle');
+  if (overrideOpen) {
+    panel.classList.add('open');
+    autoCard.style.display = 'none';
+    btn.textContent = '← Use detected location';
+    renderZoneTabs();
+    renderZoneGates(0);
+  } else {
+    closeOverride();
+  }
+}
+
+function closeOverride() {
+  overrideOpen = false;
+  document.getElementById('overridePanel').classList.remove('open');
+  document.getElementById('autoCard').style.display = 'flex';
+  document.getElementById('overrideToggle').textContent = 'Not here? Change location';
+}
+
+function renderZoneTabs() {
+  const container = document.getElementById('zoneTabs');
+  container.innerHTML = ZRH_NODES.map((z, i) => `
+    <div class="zone-tab ${i === selectedZoneIndex ? 'active' : ''}"
+         onclick="selectZone(${i})">${z.zoneCode}</div>
+  `).join('');
+}
+
+function selectZone(i) {
+  selectedZoneIndex = i;
+  selectedNodeId = null;
+  renderZoneTabs();
+  renderZoneGates(i);
+}
+
+function renderZoneGates(i) {
+  const zone = ZRH_NODES[i];
+  const schBadge = zone.schengen === 'schengen'
+    ? '<span class="badge badge-sch">Schengen</span>'
+    : zone.schengen === 'non-schengen'
+    ? '<span class="badge badge-non">Non-Schengen</span>'
+    : '<span class="badge badge-land">Landside</span>';
+  document.getElementById('zoneInfo').innerHTML = `${schBadge}${zone.desc}`;
+  const grid = document.getElementById('gateGrid');
+  grid.innerHTML = zone.nodes.map(n => `
+    <div class="gate-btn ${selectedNodeId === n.id ? 'sel' : ''}"
+         onclick="selectNode('${n.id}', '${n.name}', '${zone.zone}', '${zone.schengen}')">
+      ${n.gate || n.name.replace(/.+— /, '').replace('Airport ', '')}
+    </div>
+  `).join('');
+}
+
+function selectNode(id, name, zone, schengen) {
+  selectedNodeId = id;
+  renderZoneGates(selectedZoneIndex);
+}
+
+function selTime(t) {
+  document.getElementById('timeNow').classList.toggle('sel', t==='now');
+  document.getElementById('timeEarlier').classList.toggle('sel', t==='earlier');
+}
+
+/* ═══════════════════════════════════════════════
+   DB PANEL RENDER
+═══════════════════════════════════════════════ */
+function renderDbPanel() {
+  const totalNodes = ZRH_NODES.reduce((s, z) => s + z.nodes.length, 0);
+  document.getElementById('totalNodes').textContent = totalNodes + ' placement nodes';
+
+  const zonesHtml = ZRH_NODES.map(z => {
+    const schengenText = z.schengen === 'schengen' ? '· Schengen' :
+                         z.schengen === 'non-schengen' ? '· Non-Schengen' : '· Landside';
+    const nodesHtml = z.nodes.map(n => `
+      <div class="db-node">
+        <div class="node-id">${n.id}</div>
+        <div class="node-name">${n.name}</div>
+        <div class="node-qr">${n.qr}</div>
+      </div>
+    `).join('');
+    return `
+      <div class="db-zone">
+        <div class="db-zone-header">${z.zone} <span>${schengenText} · ${z.nodes.length} nodes</span></div>
+        <div class="db-nodes">${nodesHtml}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('dbZones').innerHTML = zonesHtml;
+
+  const sch   = ZRH_NODES.filter(z => z.schengen === 'schengen').reduce((s,z) => s+z.nodes.length, 0);
+  const nonSch= ZRH_NODES.filter(z => z.schengen === 'non-schengen').reduce((s,z) => s+z.nodes.length, 0);
+  const land  = ZRH_NODES.filter(z => z.schengen === 'landside' || z.schengen === 'pre-split').reduce((s,z) => s+z.nodes.length, 0);
+  const zones = ZRH_NODES.length;
+  document.getElementById('statRow').innerHTML = `
+    <div class="stat"><div class="n">${totalNodes}</div><div class="l">Total Nodes</div></div>
+    <div class="stat"><div class="n">${zones}</div><div class="l">Zones</div></div>
+    <div class="stat"><div class="n">${sch}</div><div class="l">Schengen</div></div>
+    <div class="stat"><div class="n">${nonSch}</div><div class="l">Non-Schengen</div></div>
+    <div class="stat"><div class="n">${land}</div><div class="l">Landside / Hub</div></div>
+  `;
+}
+
+/* ── INIT ── */
+initAutoLocation();
+renderDbPanel();
+updateTierBadge();
+</script>
+</body>
+</html>
