@@ -105,6 +105,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 .time-row { display:flex; gap:8px; margin:10px 0 6px; }
 .time-btn { flex:1; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px; font-size:12px; font-weight:500; color:var(--text-2); text-align:center; cursor:pointer; transition:all .12s; font-family:inherit; }
 .time-btn.sel { background:var(--blue-50); border-color:var(--blue-400); color:var(--blue-800); }
+#bagTA.sel,#bagTB.sel,#bagTC.sel { background:var(--amber-50); border-color:var(--amber-400); color:var(--amber-800); }
 
 /* S3B airborne */
 .fl-card { background:var(--amber-50); border:1.5px solid var(--amber-100); border-radius:var(--radius); padding:14px; margin-bottom:12px; }
@@ -166,6 +167,71 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
 .device-label { font-size:12px; color:#7a8a9a; letter-spacing:.05em; font-weight:500; }
 
+/* ── Report type selector ── */
+.rtype-screen { gap:0; }
+.rtype-header { padding:20px 20px 14px; flex-shrink:0; }
+.rtype-head { font-size:20px; font-weight:600; color:var(--text); margin-bottom:4px; }
+.rtype-sub  { font-size:13px; color:var(--text-2); line-height:1.5; }
+.rtype-cards { display:flex; flex-direction:column; gap:12px; padding:0 20px 24px; flex:1; justify-content:center; }
+.rtype-card { border-radius:14px; padding:18px 18px 16px; display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .1s,filter .15s; border:1.5px solid transparent; }
+.rtype-card:active { transform:scale(.98); filter:brightness(.96); }
+.rtype-card.blue  { background:var(--blue-50);  border-color:var(--blue-100); }
+.rtype-card.amber { background:var(--amber-50); border-color:var(--amber-100); }
+.rtype-card:hover.blue  { background:#daeaf8; }
+.rtype-card:hover.amber { background:#fdf0cc; }
+.rtype-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.rtype-icon.blue  { background:var(--blue-100); }
+.rtype-icon.amber { background:var(--amber-100); }
+.rtype-icon svg { width:22px; height:22px; }
+.rtype-body { flex:1; }
+.rtype-title { font-size:14px; font-weight:600; line-height:1.25; margin-bottom:3px; }
+.rtype-title.blue  { color:var(--blue-800); }
+.rtype-title.amber { color:var(--amber-800); }
+.rtype-desc { font-size:11px; line-height:1.45; }
+.rtype-desc.blue  { color:var(--blue-600); }
+.rtype-desc.amber { color:var(--amber-600); }
+.rtype-chev { flex-shrink:0; }
+.rtype-chev svg { width:14px; height:14px; }
+
+/* ── Bag flow ── */
+.bag-flow-hdr { background:var(--amber-50); border-bottom:1px solid var(--amber-100); padding:12px 20px 10px; flex-shrink:0; }
+.bag-flow-title { font-size:15px; font-weight:700; color:var(--amber-800); margin-bottom:1px; }
+.bag-flow-sub   { font-size:10px; color:var(--amber-600); }
+.bag-type-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.bag-type-btn { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:12px 8px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:border-color .15s,background .15s; font-family:inherit; }
+.bag-type-btn:active { transform:scale(.97); }
+.bag-type-btn.sel { background:var(--amber-50); border-color:var(--amber-400); }
+.bag-type-btn .bt-ic { width:32px; height:32px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; }
+.bag-type-btn.sel .bt-ic { background:var(--amber-100); }
+.bag-type-btn .bt-ic svg { width:16px; height:16px; }
+.bag-type-btn .bt-lbl { font-size:10px; font-weight:500; color:var(--text-2); text-align:center; line-height:1.3; }
+.bag-type-btn.sel .bt-lbl { color:var(--amber-800); }
+.bag-loc-card { background:var(--amber-50); border:1.5px solid var(--amber-100); border-radius:var(--radius); padding:14px; display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+.bag-loc-dot  { width:10px; height:10px; border-radius:50%; background:var(--amber-600); flex-shrink:0; }
+.bag-loc-name { font-size:14px; font-weight:600; color:var(--amber-800); }
+.bag-loc-sub  { font-size:11px; color:var(--amber-600); margin-top:1px; }
+.bag-auto-badge { margin-left:auto; font-size:9px; font-weight:600; background:var(--amber-100); color:var(--amber-800); border-radius:5px; padding:3px 7px; letter-spacing:.04em; flex-shrink:0; }
+.alert-strip { background:#FFF0F0; border:1px solid #FFCDD2; border-radius:var(--radius-sm); padding:10px 14px; display:flex; align-items:flex-start; gap:10px; margin-top:10px; }
+.alert-dot  { width:8px; height:8px; border-radius:50%; background:#C62828; margin-top:3px; flex-shrink:0; }
+.alert-text { font-size:11px; color:#7B1919; line-height:1.5; }
+.alert-text strong { font-weight:700; }
+.bag-area-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; margin-bottom:10px; }
+.bag-area-btn { background:var(--white); border:0.5px solid var(--border); border-radius:7px; font-size:10px; font-weight:500; color:var(--text-2); text-align:center; padding:8px 4px; cursor:pointer; font-family:inherit; }
+.bag-area-btn.sel { background:var(--amber-50); border-color:var(--amber-400); color:var(--amber-800); }
+
+/* ── Language switcher ── */
+.lang-bar { display:flex; justify-content:flex-end; padding:6px 16px 0; flex-shrink:0; }
+.lang-btn { display:flex; align-items:center; gap:5px; background:var(--surface); border:0.5px solid var(--border); border-radius:20px; padding:4px 10px 4px 8px; font-size:11px; font-weight:500; color:var(--text-2); cursor:pointer; font-family:inherit; transition:background .15s; }
+.lang-btn:hover { background:var(--blue-50); }
+.lang-btn svg { width:12px; height:12px; }
+.lang-picker { position:absolute; top:50px; right:12px; background:var(--white); border:0.5px solid var(--border); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,0.13); z-index:300; overflow:hidden; display:none; min-width:148px; }
+.lang-picker.open { display:block; }
+.lang-option { display:flex; align-items:center; gap:10px; padding:10px 14px; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; border-bottom:0.5px solid var(--border); font-family:inherit; background:none; border-left:none; border-right:none; border-top:none; width:100%; text-align:left; }
+.lang-option:last-child { border-bottom:none; }
+.lang-option:hover { background:var(--blue-50); }
+.lang-option.cur { color:var(--blue-600); font-weight:700; }
+.lang-flag { font-size:15px; }
+
 /* DB panel */
 .db-panel { width:100%; max-width:900px; background:#1a1f2e; border-radius:16px; padding:24px; font-family:'SF Mono','Fira Code','Consolas',monospace; }
 .db-panel h2 { font-size:11px; color:#7a8fa8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:16px; font-family:inherit; }
@@ -208,21 +274,124 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
   <div class="screens">
 
+  <!-- Language picker overlay -->
+  <div class="lang-picker" id="langPicker">
+    <button class="lang-option cur" onclick="setLang('en')"><span class="lang-flag">🇬🇧</span> English</button>
+    <button class="lang-option" onclick="setLang('de')"><span class="lang-flag">🇩🇪</span> Deutsch</button>
+    <button class="lang-option" onclick="setLang('es')"><span class="lang-flag">🇪🇸</span> Español</button>
+    <button class="lang-option" onclick="setLang('zh')"><span class="lang-flag">🇨🇳</span> 中文</button>
+    <button class="lang-option" onclick="setLang('hi')"><span class="lang-flag">🇮🇳</span> हिन्दी</button>
+  </div>
+
     <!-- S1: LANDING -->
     <div class="screen active" id="s1">
-      <div class="screen-body">
+      <div class="lang-bar">
+        <button class="lang-btn" onclick="toggleLangPicker(event)">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#555" stroke-width="1"/><path d="M6 1c-1.2 1.5-2 3-2 5s.8 3.5 2 5" stroke="#555" stroke-width="1" stroke-linecap="round"/><path d="M6 1c1.2 1.5 2 3 2 5s-.8 3.5-2 5" stroke="#555" stroke-width="1" stroke-linecap="round"/><path d="M1.5 6h9" stroke="#555" stroke-width="1" stroke-linecap="round"/></svg>
+          <span id="langLabel">EN</span>
+          <svg viewBox="0 0 8 8" fill="none"><path d="M2 3l2 2 2-2" stroke="#555" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="screen-body" style="padding-top:8px;">
         <div class="s1-logo" id="s1logo" style="color:var(--text-3)">ZRH SAFEGUARDING</div>
         <div class="s1-center">
           <div id="s1badge" style="display:none;text-align:center"><div class="ab-badge">✈️ Swiss International Air Lines · Onboard</div></div>
           <div class="s1-head" id="s1head">Not sure if something is right?</div>
           <p style="font-size:13px;color:var(--text-2);line-height:1.55;text-align:center;margin-bottom:28px;" id="s1sub">Share a quick observation.<br>No details needed. Strictly confidential.</p>
-          <button class="btn-p" id="s1btn" onclick="goTo(2)" style="margin-top:0;margin-bottom:14px;">Start</button>
+          <button class="btn-p" id="s1btn" onclick="startFlow()" style="margin-top:0;margin-bottom:14px;">Start</button>
           <div class="trust-row">
-            <span>Under 2 minutes</span><span class="trust-dot"></span>
-            <span>No personal data</span><span class="trust-dot"></span>
-            <span>Swiss privacy</span>
+            <span id="i-t1">Under 2 minutes</span><span class="trust-dot"></span>
+            <span id="i-t2">No personal data</span><span class="trust-dot"></span>
+            <span id="i-t3">Swiss privacy</span>
           </div>
         </div>
+      </div><!-- /screen-body -->
+    </div><!-- /s1 -->
+    <div class="screen rtype-screen" id="s_type">
+      <div class="nav-bar"><button class="back-btn blue" onclick="goTo(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="rtype-header">
+        <div class="rtype-head" id="i-rtype-head">What do you want to report?</div>
+        <div class="rtype-sub" id="i-rtype-sub">Select the type of concern you've observed.</div>
+      </div>
+      <div class="rtype-cards">
+        <div class="rtype-card blue" onclick="goTo(2)">
+          <div class="rtype-icon blue"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="6.5" r="3.8" stroke="#185FA5" stroke-width="1.5"/><path d="M4 19c0-3.87 3.13-7 7-7s7 3.13 7 7" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="rtype-body">
+            <div class="rtype-title blue" id="i-rtype-person-title">Concern about a person</div>
+            <div class="rtype-desc blue" id="i-rtype-person-desc">Possible exploitation, trafficking, or a person in distress</div>
+          </div>
+          <div class="rtype-chev"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="rtype-card amber" onclick="goTo('bag1')">
+          <div class="rtype-icon amber"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="9" width="16" height="11" rx="2" stroke="#B8760A" stroke-width="1.5"/><path d="M8 9V7a3 3 0 016 0v2" stroke="#B8760A" stroke-width="1.5" stroke-linecap="round"/><path d="M8 14.5h6M11 12.5v4" stroke="#B8760A" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div class="rtype-body">
+            <div class="rtype-title amber" id="i-rtype-bag-title">Unattended bag or item</div>
+            <div class="rtype-desc amber" id="i-rtype-bag-desc">Suspicious or unclaimed object left in the airport</div>
+          </div>
+          <div class="rtype-chev"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#B8760A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SBAG1: ITEM TYPE -->
+    <div class="screen" id="sbag1">
+      <div class="nav-bar"><button class="back-btn amber" onclick="goTo('type')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="progress"><div class="dot active am"></div><div class="dot"></div></div>
+      <div class="bag-flow-hdr"><div class="bag-flow-title" id="i-bag-title">Security report</div><div class="bag-flow-sub" id="i-bag-sub">Forwarded directly to security operations</div></div>
+      <div class="screen-body" style="padding-top:16px;">
+        <div class="heading" style="font-size:17px;margin-bottom:4px;" id="i-bag-q">What did you see?</div>
+        <p class="hint" style="margin-bottom:14px;" id="i-bag-hint">Select one</p>
+        <div class="bag-type-grid" id="bagTypeGrid">
+          <button class="bag-type-btn" onclick="selBagType(this)"><div class="bt-ic"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="10" rx="2" stroke="#B8760A" stroke-width="1.4"/><path d="M7 8V6a3 3 0 016 0v2" stroke="#B8760A" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="bt-lbl" id="i-bag-t1">Bag / luggage</span></button>
+          <button class="bag-type-btn" onclick="selBagType(this)"><div class="bt-ic"><svg viewBox="0 0 20 20" fill="none"><rect x="5" y="6" width="10" height="12" rx="1.5" stroke="#B8760A" stroke-width="1.4"/><path d="M8 6V5a2 2 0 014 0v1" stroke="#B8760A" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="bt-lbl" id="i-bag-t2">Box / package</span></button>
+          <button class="bag-type-btn" onclick="selBagType(this)"><div class="bt-ic"><svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="12" rx="6" ry="4" stroke="#B8760A" stroke-width="1.4"/><path d="M4 10V8a6 3.5 0 0112 0v2" stroke="#B8760A" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="bt-lbl" id="i-bag-t3">Backpack</span></button>
+          <button class="bag-type-btn" onclick="selBagType(this)"><div class="bt-ic"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="11" r="5" stroke="#B8760A" stroke-width="1.4"/><path d="M10 6V4M10 18v-2M4 11H2M18 11h-2" stroke="#B8760A" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="bt-lbl" id="i-bag-t4">Other object</span></button>
+        </div>
+        <button class="btn-p am" id="bagContBtn" onclick="goTo('bag2')" disabled style="margin-top:auto;">Continue</button>
+      </div>
+    </div>
+
+    <!-- SBAG2: LOCATION -->
+    <div class="screen" id="sbag2">
+      <div class="nav-bar"><button class="back-btn amber" onclick="goTo('bag1')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="progress"><div class="dot done am"></div><div class="dot active am"></div></div>
+      <div class="bag-flow-hdr"><div class="bag-flow-title">Security report</div><div class="bag-flow-sub">Forwarded directly to security operations</div></div>
+      <div class="screen-body" style="padding-top:16px;">
+        <div class="heading" style="font-size:17px;margin-bottom:12px;" id="i-bag-where">Where is it?</div>
+        <div class="bag-loc-card" id="bagAutoCard">
+          <div class="bag-loc-dot"></div>
+          <div><div class="bag-loc-name" id="bagLocName">Gate B32 · Pier B</div><div class="bag-loc-sub">Detected from QR scan</div></div>
+          <div class="bag-auto-badge">AUTO</div>
+        </div>
+        <button class="ov-link" id="bagOvLink" onclick="toggleBagOv()">Not here? Change location</button>
+        <div class="ov-panel" id="bagOvPanel">
+          <div class="label-sm" style="font-size:11px;font-weight:500;color:var(--text-2);margin-bottom:6px;">Terminal / Pier</div>
+          <div class="bag-area-grid" id="bagTermGrid">
+            <div class="bag-area-btn" onclick="selBagArea(this,'t')">Landside</div>
+            <div class="bag-area-btn sel" onclick="selBagArea(this,'t')">Pier B/D</div>
+            <div class="bag-area-btn" onclick="selBagArea(this,'t')">Pier A</div>
+            <div class="bag-area-btn" onclick="selBagArea(this,'t')">Dock E</div>
+            <div class="bag-area-btn" onclick="selBagArea(this,'t')">Security</div>
+            <div class="bag-area-btn" onclick="selBagArea(this,'t')">Other</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="alert-strip"><div class="alert-dot"></div><div class="alert-text" id="i-bag-alert"><strong>If you feel unsafe</strong>, move away and alert airport staff or call 117 directly.</div></div>
+        <button class="btn-p am" id="i-bag-submit" onclick="goTo('bag3')" style="margin-top:14px;">Submit report</button>
+      </div>
+    </div>
+
+    <!-- SBAG3: CONFIRMATION -->
+    <div class="screen" id="sbag3">
+      <div class="screen-body" style="padding-top:20px;">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px;">
+          <div class="chk-ring" style="background:var(--amber-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#B8760A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="s4-head" id="i-bag-conf-head">Report sent to security operations.</div>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:14px;" id="i-bag-conf-sub">Your location has been forwarded.<br>No personal data was collected.</p>
+        </div>
+        <div class="info-box amber" id="i-bag-conf-info">Direct alert · Security Operations<br>On-premise · Swiss privacy standards</div>
+        <div class="alert-strip"><div class="alert-dot"></div><div class="alert-text" id="i-bag-conf-safety"><strong>If the situation changes</strong>, call 117 immediately or contact airport staff.</div></div>
+        <button class="btn-p am" id="i-done-b" onclick="resetApp()" style="margin-top:14px;">Done</button>
       </div>
     </div>
 
@@ -231,17 +400,17 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
       <div class="nav-bar"><button class="back-btn blue" id="s2back" onclick="goTo(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress" id="s2prog"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
-        <div class="heading" style="margin-bottom:4px;">What did you observe?</div>
-        <p class="hint" style="margin-bottom:0;">Select all that apply</p>
+        <div class="heading" style="margin-bottom:4px;" id="i-obs-q">What did you observe?</div>
+        <p class="hint" style="margin-bottom:0;" id="i-obs-hint">Select all that apply</p>
         <div class="card-grid" id="cardGrid">
-          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M3.5 17c0-3.59 2.91-6.5 6.5-6.5s6.5 2.91 6.5 6.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 7.5l1.5 1-1.5 1" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="lbl">Scripted travel answers</span></div>
-          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="7" cy="5.5" r="2.8" stroke="#185FA5" stroke-width="1.4"/><circle cx="14" cy="5" r="2.2" stroke="#185FA5" stroke-width="1.4"/><path d="M2 16c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 12c1.5 0 3.5.9 3.5 4" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="lbl">Third party speaks for them</span></div>
-          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M5 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M6 12l-2 1.5M14 12l2 1.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="lbl">Movement restricted</span></div>
-          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M4.5 17c0-3.04 2.46-5.5 5.5-5.5s5.5 2.46 5.5 5.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9l-1 2M12 9l1 2" stroke="#185FA5" stroke-width="1.6" stroke-linecap="round"/></svg></div><span class="lbl">Minor in visible distress</span></div>
-          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><path d="M3 13l5-5 3 3 6-7" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="4" r="2" stroke="#185FA5" stroke-width="1.3"/></svg></div><span class="lbl">Avoids authority figures</span></div>
-          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><path d="M5 6h10M5 10h7M5 14h5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/><circle cx="15" cy="14" r="3" stroke="#185FA5" stroke-width="1.3"/><path d="M15 13v1.5l1 1" stroke="#185FA5" stroke-width="1.2" stroke-linecap="round"/></svg></div><span class="lbl">Signs of physical branding</span></div>
-          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="11" rx="2" stroke="#185FA5" stroke-width="1.3"/><path d="M7 14v3M13 14v3M5 17h10" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg></div><span class="lbl">No personal belongings</span></div>
-          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="5" r="3" stroke="#185FA5" stroke-width="1.4"/><path d="M3 17c0-3.31 2.69-6 6-6" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M14 10v5M14 17v.5" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/></svg></div><span class="lbl">Adult directing a child</span></div>
+          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M3.5 17c0-3.59 2.91-6.5 6.5-6.5s6.5 2.91 6.5 6.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 7.5l1.5 1-1.5 1" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="lbl" id="i-obs1">Scripted travel answers</span></div>
+          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="7" cy="5.5" r="2.8" stroke="#185FA5" stroke-width="1.4"/><circle cx="14" cy="5" r="2.2" stroke="#185FA5" stroke-width="1.4"/><path d="M2 16c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M13 12c1.5 0 3.5.9 3.5 4" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs2">Third party speaks for them</span></div>
+          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M5 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M6 12l-2 1.5M14 12l2 1.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs3">Movement restricted</span></div>
+          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.5" stroke="#185FA5" stroke-width="1.4"/><path d="M4.5 17c0-3.04 2.46-5.5 5.5-5.5s5.5 2.46 5.5 5.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9l-1 2M12 9l1 2" stroke="#185FA5" stroke-width="1.6" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs4">Minor in visible distress</span></div>
+          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><path d="M3 13l5-5 3 3 6-7" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="4" r="2" stroke="#185FA5" stroke-width="1.3"/></svg></div><span class="lbl" id="i-obs5">Avoids authority figures</span></div>
+          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><path d="M5 6h10M5 10h7M5 14h5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/><circle cx="15" cy="14" r="3" stroke="#185FA5" stroke-width="1.3"/><path d="M15 13v1.5l1 1" stroke="#185FA5" stroke-width="1.2" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs6">Signs of physical branding</span></div>
+          <div class="obs-card" data-tier="1" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="11" rx="2" stroke="#185FA5" stroke-width="1.3"/><path d="M7 14v3M13 14v3M5 17h10" stroke="#185FA5" stroke-width="1.3" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs7">No personal belongings</span></div>
+          <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="5" r="3" stroke="#185FA5" stroke-width="1.4"/><path d="M3 17c0-3.31 2.69-6 6-6" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M14 10v5M14 17v.5" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs8">Adult directing a child</span></div>
         </div>
         <div class="tier-badge" id="tierBadge">Select observations above</div>
         <button class="btn-p" id="contBtn" onclick="goTo(3)" disabled style="margin-top:6px;">Continue</button>
@@ -253,7 +422,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
       <div class="nav-bar"><button class="back-btn blue" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>
       <div class="screen-body" style="padding-top:10px;">
-        <div class="heading" style="margin-bottom:12px;">Where is this?</div>
+        <div class="heading" style="margin-bottom:12px;" id="i-where">Where is this?</div>
         <div class="loc-card" id="autoCard">
           <div class="loc-dot"></div>
           <div><div class="loc-name" id="locName">Gate B32 · Pier B</div><div class="loc-sub" id="locSub">Detected from QR scan · Schengen</div></div>
@@ -266,13 +435,13 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
           <div class="gate-grid" id="gateGrid"></div>
         </div>
         <div class="divider"></div>
-        <div class="sec-lbl">When?</div>
+        <div class="sec-lbl" id="i-when">When?</div>
         <div class="time-row">
           <button class="time-btn sel" id="tNow" onclick="selTime('now')">Right now</button>
           <button class="time-btn" id="tEarly" onclick="selTime('early')">Earlier today</button>
         </div>
         <div class="hint" id="tierInfo" style="text-align:center;margin-bottom:8px;"></div>
-        <button class="btn-p" onclick="goTo(4)">Submit observation</button>
+        <button class="btn-p" id="i-submit-obs" onclick="goTo(4)">Submit observation</button>
       </div>
     </div>
 
@@ -340,7 +509,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
           <p class="opt-hint">Clothing, direction of travel, who they're with, etc.</p>
           <textarea class="opt-inp ta" placeholder="e.g. Blue jacket, heading toward Gate B32…" rows="3"></textarea>
         </div>
-        <button class="btn-p" onclick="resetApp()" style="margin-top:14px;">Done</button>
+        <button class="btn-p" id="i-done-a" onclick="resetApp()" style="margin-top:14px;">Done</button>
       </div>
     </div>
 
@@ -457,7 +626,7 @@ const FLIGHTS = {
 
 /* Screen routing per mode */
 const ROUTE = {
-  airport:  {1:'s1',2:'s2',3:'s3', 4:'s4a'},
+  airport:  {1:'s1','type':'s_type',2:'s2',3:'s3', 4:'s4a','bag1':'sbag1','bag2':'sbag2','bag3':'sbag3'},
   airborne: {1:'s1',2:'s2',3:'s3b',4:'s4b'},
 };
 
@@ -495,6 +664,7 @@ function setMode(m) {
     document.getElementById('s1head').textContent='Not sure if something is right?';
     document.getElementById('s1sub').innerHTML='Share a quick observation.<br>No details needed. Strictly confidential.';
     document.getElementById('s1btn').style.background='';
+    const bln=document.getElementById('bagLocName'); if(bln) bln.textContent='Gate B32 · Pier B';
   } else {
     document.getElementById('s1logo').textContent='SWISS SAFEGUARDING · ONBOARD';
     document.getElementById('s1logo').style.color='var(--amber-600)';
@@ -512,8 +682,11 @@ function setMode(m) {
 function sid(s) { return ROUTE[mode][s]; }
 
 function goTo(toStep) {
-  const from = document.getElementById(sid(step));
-  const to   = document.getElementById(sid(toStep));
+  const fromId = sid(step);
+  const toId   = sid(toStep);
+  if (!fromId || !toId) return;
+  const from = document.getElementById(fromId);
+  const to   = document.getElementById(toId);
   from.classList.remove('active'); from.classList.add('exit');
   to.style.transform='translateX(100%)'; to.classList.remove('back-exit','exit');
   requestAnimationFrame(()=>{ to.classList.add('active'); to.style.transform=''; });
@@ -524,20 +697,38 @@ function goTo(toStep) {
   if (toStep===4 && mode==='airborne') fillAirborneConfirm();
 }
 
+function startFlow() {
+  if (mode === 'airport') goTo('type');
+  else goTo(2);
+}
+
 function updateLabel() {
-  const lbl={1:'Screen 1 — Landing',2:'Screen 2 — Indicators',3:mode==='airport'?'Screen 3 — Location & Time':'Screen 3 — Flight Details',4:'Screen 4 — Confirmation'};
-  document.getElementById('devLabel').textContent=lbl[step];
+  const lbl={
+    1:'Screen 1 — Landing',
+    'type':'Screen — Report Type',
+    2:'Screen 2 — Indicators',
+    3:mode==='airport'?'Screen 3 — Location & Time':'Screen 3 — Flight Details',
+    4:'Screen 4 — Confirmation',
+    'bag1':'Screen B1 — Item Type',
+    'bag2':'Screen B2 — Location',
+    'bag3':'Screen B3 — Confirmation',
+  };
+  document.getElementById('devLabel').textContent=lbl[step]||'';
 }
 
 function resetApp() {
-  ['s1','s2','s3','s3b','s4a','s4b'].forEach(id=>{
+  ['s1','s_type','s2','s3','s3b','s4a','s4b','sbag1','sbag2','sbag3'].forEach(id=>{
     const el=document.getElementById(id);
+    if (!el) return;
     el.classList.remove('active','exit','back-exit');
     el.style.transform='translateX(100%)';
   });
   const s1=document.getElementById('s1'); s1.style.transform='translateX(0)'; s1.classList.add('active');
   document.querySelectorAll('.obs-card').forEach(c=>c.classList.remove('sel'));
-  updateTierBadge(); closeOv(); selTime('now'); step=1; updateLabel();
+  document.querySelectorAll('.bag-type-btn').forEach(b=>b.classList.remove('sel'));
+  bagTypeSelected=false;
+  const bcb=document.getElementById('bagContBtn'); if(bcb) bcb.disabled=true;
+  updateTierBadge(); closeOv(); closeBagOv(); selTime('now'); step=1; updateLabel();
   const fi=document.getElementById('flNum'); if(fi) fi.value='';
   document.getElementById('flResult').classList.remove('vis');
   document.getElementById('spinner').style.display='none';
@@ -670,6 +861,229 @@ function renderDB(){
     <div class="stat"><div class="n">${non}</div><div class="l">Non-Schengen</div></div>
     <div class="stat"><div class="n">${tot-sch-non}</div><div class="l">Landside/Hub</div></div>`;
 }
+
+/* ════════════════════════════════
+   BAG FLOW
+════════════════════════════════ */
+let bagTypeSelected = false;
+let bagTimeSelected = false;
+let bagOvOpen = false;
+
+function selBagType(el) {
+  document.querySelectorAll('#bagTypeGrid .bag-type-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel'); bagTypeSelected=true; updateBagBtn();
+}
+function updateBagBtn() {
+  const btn=document.getElementById('bagContBtn');
+  if(btn) btn.disabled=!bagTypeSelected;
+}
+function toggleBagOv() {
+  bagOvOpen=!bagOvOpen;
+  document.getElementById('bagOvPanel').classList.toggle('open',bagOvOpen);
+  document.getElementById('bagAutoCard').style.display=bagOvOpen?'none':'flex';
+  document.getElementById('bagOvLink').textContent=bagOvOpen?'← Use detected location':'Not here? Change location';
+}
+function closeBagOv() {
+  bagOvOpen=false;
+  const p=document.getElementById('bagOvPanel'), c=document.getElementById('bagAutoCard'), b=document.getElementById('bagOvLink');
+  if(p) p.classList.remove('open'); if(c) c.style.display='flex'; if(b) b.textContent='Not here? Change location';
+}
+function selBagArea(el, g) {
+  const grid = g==='t' ? document.getElementById('bagTermGrid') : null;
+  if(grid) { grid.querySelectorAll('.bag-area-btn').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); }
+}
+
+/* ════════════════════════════════
+   LANGUAGE
+════════════════════════════════ */
+const LANG_NAMES = {en:'EN',de:'DE',es:'ES',zh:'中文',hi:'हि'};
+const L = {
+  en:{
+    logo:'ZRH SAFEGUARDING', head:'Not sure if something is right?',
+    sub:'Share a quick observation.<br>No details needed. Strictly confidential.',
+    start:'Start', t1:'Under 2 min', t2:'Anonymous', t3:'Swiss privacy',
+    rtype_head:'What do you want to report?', rtype_sub:'Select the type of concern.',
+    rtype_person_title:'Concern about a person', rtype_person_desc:'Possible exploitation, trafficking, or a person in distress',
+    rtype_bag_title:'Unattended bag or item', rtype_bag_desc:'Suspicious or unclaimed object in the airport',
+    obs_q:'What did you observe?', obs_hint:'Select all that apply',
+    obs1:'Scripted travel answers', obs2:'Third party speaks for them', obs3:'Movement restricted',
+    obs4:'Minor in visible distress', obs5:'Avoids authority figures', obs6:'Signs of physical branding',
+    obs7:'No personal belongings', obs8:'Adult directing a child',
+    select_above:'Select observations above', cont:'Continue',
+    where:'Where is this?', detected:'Detected from QR scan · Schengen',
+    not_here:'Not here? Change location', when:'When?', now:'Right now', earlier:'Earlier today',
+    submit_obs:'Submit observation', back:'Back',
+    bag_title:'Security report', bag_sub:'Forwarded directly to security operations',
+    bag_q:'What did you see?', bag_hint:'Select one',
+    bag_t1:'Bag / luggage', bag_t2:'Box / package', bag_t3:'Backpack', bag_t4:'Other object',
+    bag_where:'Where is it?', bag_submit:'Submit report',
+    bag_alert:'<strong>If you feel unsafe</strong>, move away and alert airport staff or call 117.',
+    bag_conf_head:'Report sent to security operations.',
+    bag_conf_sub:'Your location has been forwarded.<br>No personal data was collected.',
+    bag_conf_info:'Direct alert · Security Operations<br>On-premise · Swiss privacy standards',
+    bag_conf_safety:'<strong>If the situation changes</strong>, call 117 or alert airport staff immediately.',
+    done:'Done',
+  },
+  de:{
+    // Natural Swiss German register — formal but direct, as you'd see in ZRH signage
+    logo:'ZRH SAFEGUARDING', head:'Etwas stimmt hier nicht?',
+    sub:'Beobachtung anonym melden.<br>Keine Details nötig. Vollständig vertraulich.',
+    start:'Weiter', t1:'Unter 2 Min.', t2:'Anonym', t3:'Datenschutz CH',
+    rtype_head:'Was möchten Sie melden?', rtype_sub:'Bitte wählen Sie die Art Ihrer Beobachtung.',
+    rtype_person_title:'Bedenken zu einer Person', rtype_person_desc:'Möglicher Menschenhandel, Ausbeutung oder eine Person in Not',
+    rtype_bag_title:'Herrenloses Gepäck', rtype_bag_desc:'Verdächtiger oder herrenloser Gegenstand im Flughafen',
+    obs_q:'Was haben Sie beobachtet?', obs_hint:'Alles Zutreffende auswählen',
+    obs1:'Auswendig gelernte Antworten', obs2:'Andere Person antwortet für sie', obs3:'Bewegung wird kontrolliert',
+    obs4:'Minderjährige in sichtlicher Not', obs5:'Weicht Sicherheitspersonal aus', obs6:'Hinweise auf körperliche Brandzeichen',
+    obs7:'Kein persönliches Gepäck', obs8:'Erwachsener steuert ein Kind',
+    select_above:'Bitte oben auswählen', cont:'Weiter',
+    where:'Wo geschieht das?', detected:'Standort via QR erkannt · Schengen',
+    not_here:'Anderen Ort wählen', when:'Wann?', now:'Gerade jetzt', earlier:'Früher heute',
+    submit_obs:'Meldung absenden', back:'Zurück',
+    bag_title:'Sicherheitsmeldung', bag_sub:'Wird direkt an den Sicherheitsdienst weitergeleitet',
+    bag_q:'Was haben Sie gesehen?', bag_hint:'Bitte auswählen',
+    bag_t1:'Koffer / Gepäck', bag_t2:'Paket / Karton', bag_t3:'Rucksack', bag_t4:'Anderer Gegenstand',
+    bag_where:'Wo befindet sich der Gegenstand?', bag_submit:'Meldung absenden',
+    bag_alert:'<strong>Wenn Sie sich unsicher fühlen</strong>, entfernen Sie sich und wenden Sie sich direkt an das Flughafenpersonal oder rufen Sie 117 an.',
+    bag_conf_head:'Meldung an den Sicherheitsdienst übermittelt.',
+    bag_conf_sub:'Ihr Standort wurde weitergeleitet.<br>Es wurden keine persönlichen Daten gespeichert.',
+    bag_conf_info:'Direktalarm · Sicherheitsdienst<br>Lokal gespeichert · Schweizer Datenschutz',
+    bag_conf_safety:'<strong>Falls sich die Situation verändert</strong>, rufen Sie sofort 117 an.',
+    done:'Fertig',
+  },
+  es:{
+    // Latin American neutral Spanish — works for ZRH's international mix
+    logo:'ZRH SAFEGUARDING', head:'¿Algo le parece fuera de lugar?',
+    sub:'Comparta lo que vio.<br>Sin datos personales. Completamente confidencial.',
+    start:'Comenzar', t1:'Menos de 2 min', t2:'Anónimo', t3:'Privacidad suiza',
+    rtype_head:'¿Qué desea reportar?', rtype_sub:'Seleccione el tipo de situación que observó.',
+    rtype_person_title:'Preocupación sobre una persona', rtype_person_desc:'Posible trata de personas, explotación o persona en peligro',
+    rtype_bag_title:'Objeto o equipaje sin dueño', rtype_bag_desc:'Objeto sospechoso o abandonado en el aeropuerto',
+    obs_q:'¿Qué observó?', obs_hint:'Seleccione todo lo que aplique',
+    obs1:'Respuestas de viaje memorizadas', obs2:'Otra persona responde por ella/él', obs3:'Movimiento controlado por otro',
+    obs4:'Menor en visible angustia', obs5:'Evita al personal de seguridad', obs6:'Posibles marcas en el cuerpo',
+    obs7:'Sin equipaje ni pertenencias', obs8:'Adulto que dirige a un menor',
+    select_above:'Seleccione arriba para continuar', cont:'Continuar',
+    where:'¿Dónde ocurre esto?', detected:'Ubicación detectada por QR · Schengen',
+    not_here:'¿Otro lugar? Cambiar ubicación', when:'¿Cuándo?', now:'Ahora mismo', earlier:'Antes hoy',
+    submit_obs:'Enviar observación', back:'Volver',
+    bag_title:'Reporte de seguridad', bag_sub:'Se envía directamente a operaciones de seguridad',
+    bag_q:'¿Qué vio?', bag_hint:'Seleccione una opción',
+    bag_t1:'Maleta / equipaje', bag_t2:'Caja / paquete', bag_t3:'Mochila', bag_t4:'Otro objeto',
+    bag_where:'¿Dónde está el objeto?', bag_submit:'Enviar reporte',
+    bag_alert:'<strong>Si siente que está en peligro</strong>, aléjese y avise al personal del aeropuerto o llame al 117.',
+    bag_conf_head:'Reporte enviado a seguridad.',
+    bag_conf_sub:'Su ubicación fue registrada.<br>No se guardaron datos personales.',
+    bag_conf_info:'Alerta directa · Seguridad del aeropuerto<br>Almacenamiento local · Privacidad suiza',
+    bag_conf_safety:'<strong>Si la situación cambia</strong>, llame al 117 o avise al personal inmediatamente.',
+    done:'Listo',
+  },
+  zh:{
+    // Mainland Simplified Chinese — formal but accessible register
+    logo:'ZRH 安全举报', head:'发现可疑情况？',
+    sub:'匿名举报，无需留下任何个人信息。<br>全程保密。',
+    start:'开始', t1:'不到2分钟', t2:'完全匿名', t3:'瑞士数据保护',
+    rtype_head:'您想举报什么？', rtype_sub:'请选择您观察到的情况类型。',
+    rtype_person_title:'对某人有顾虑', rtype_person_desc:'疑似人口贩卖、剥削，或处于危险中的人',
+    rtype_bag_title:'无人看管的行李或物品', rtype_bag_desc:'机场内可疑或无人认领的物品',
+    obs_q:'您观察到了什么？', obs_hint:'可多选',
+    obs1:'回答像是事先背好的', obs2:'由他人代为回答问题', obs3:'行动受他人控制',
+    obs4:'未成年人明显处于痛苦中', obs5:'刻意回避安保人员', obs6:'身体上有疑似烙印痕迹',
+    obs7:'没有随身行李或证件', obs8:'成年人对儿童发号施令',
+    select_above:'请在上方选择观察项', cont:'继续',
+    where:'事情发生在哪里？', detected:'已通过二维码识别位置 · 申根区',
+    not_here:'位置不对？重新选择', when:'何时发生？', now:'刚刚', earlier:'今天稍早',
+    submit_obs:'提交举报', back:'返回',
+    bag_title:'安全举报', bag_sub:'将直接转交安保部门处理',
+    bag_q:'您看到了什么？', bag_hint:'请选择一项',
+    bag_t1:'行李箱 / 包裹', bag_t2:'纸箱 / 快递', bag_t3:'背包', bag_t4:'其他物品',
+    bag_where:'物品在哪里？', bag_submit:'提交举报',
+    bag_alert:'<strong>如感到不安全</strong>，请立即离开该物品附近，并告知机场工作人员或拨打117。',
+    bag_conf_head:'举报已发送至安保部门。',
+    bag_conf_sub:'您的位置信息已转交。<br>未收集任何个人信息。',
+    bag_conf_info:'直接警报 · 机场安保<br>本地存储 · 符合瑞士数据保护法',
+    bag_conf_safety:'<strong>如情况有变</strong>，请立即拨打117或联系机场工作人员。',
+    done:'完成',
+  },
+  hi:{
+    // Hindustani register — conversational, avoids overly formal Sanskrit-heavy words
+    // ⚠ Flag for native speaker review before deployment
+    logo:'ZRH सुरक्षा', head:'कुछ ठीक नहीं लग रहा?',
+    sub:'जो देखा वो बताएं।<br>नाम नहीं, कोई जानकारी नहीं। पूरी तरह गुप्त।',
+    start:'शुरू करें', t1:'2 मिनट से कम', t2:'पूरी तरह गुमनाम', t3:'स्विस गोपनीयता',
+    rtype_head:'आप क्या रिपोर्ट करना चाहते हैं?', rtype_sub:'अपनी स्थिति के अनुसार चुनें।',
+    rtype_person_title:'किसी व्यक्ति के बारे में चिंता', rtype_person_desc:'संभावित तस्करी, शोषण, या मुसीबत में फंसा व्यक्ति',
+    rtype_bag_title:'बिना मालिक का सामान', rtype_bag_desc:'हवाई अड्डे में संदिग्ध या छोड़ा हुआ सामान',
+    obs_q:'आपने क्या देखा?', obs_hint:'जो भी लागू हो, चुनें',
+    obs1:'रटे-रटाए जवाब दे रहा/रही है', obs2:'कोई और उनकी जगह जवाब दे रहा है', obs3:'हरकतों पर किसी का नियंत्रण है',
+    obs4:'नाबालिग स्पष्ट रूप से परेशान है', obs5:'सुरक्षाकर्मियों से बचता/बचती है', obs6:'शरीर पर दागने के निशान',
+    obs7:'कोई सामान या पहचान नहीं', obs8:'बड़ा किसी बच्चे को निर्देश दे रहा है',
+    select_above:'ऊपर से चुनें', cont:'आगे बढ़ें',
+    where:'यह कहाँ हो रहा है?', detected:'QR कोड से जगह पहचानी गई · शेंगेन',
+    not_here:'यहाँ नहीं? जगह बदलें', when:'कब?', now:'अभी', earlier:'आज पहले',
+    submit_obs:'रिपोर्ट भेजें', back:'वापस',
+    bag_title:'सुरक्षा रिपोर्ट', bag_sub:'सीधे सुरक्षा दल को भेजा जाएगा',
+    bag_q:'आपने क्या देखा?', bag_hint:'एक विकल्प चुनें',
+    bag_t1:'बैग / सूटकेस', bag_t2:'डिब्बा / पैकेट', bag_t3:'बैकपैक', bag_t4:'कोई और चीज़',
+    bag_where:'सामान कहाँ है?', bag_submit:'रिपोर्ट भेजें',
+    bag_alert:'<strong>अगर आप असुरक्षित महसूस कर रहे हैं</strong>, तो उस जगह से हट जाएं और एयरपोर्ट स्टाफ को बताएं या 117 पर कॉल करें।',
+    bag_conf_head:'रिपोर्ट सुरक्षा दल को भेज दी गई।',
+    bag_conf_sub:'आपकी लोकेशन पहुंच गई है।<br>कोई निजी जानकारी नहीं ली गई।',
+    bag_conf_info:'सीधा अलर्ट · सुरक्षा दल<br>लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन',
+    bag_conf_safety:'<strong>अगर हालात बदलें</strong>, तो तुरंत 117 पर कॉल करें।',
+    done:'हो गया',
+  },
+};
+
+let curLang = 'en';
+
+const I18N_MAP = {
+  s1logo:'logo', s1head:'head', s1sub:'sub', s1btn:'start',
+  'i-t1':'t1','i-t2':'t2','i-t3':'t3',
+  'i-rtype-head':'rtype_head','i-rtype-sub':'rtype_sub',
+  'i-rtype-person-title':'rtype_person_title','i-rtype-person-desc':'rtype_person_desc',
+  'i-rtype-bag-title':'rtype_bag_title','i-rtype-bag-desc':'rtype_bag_desc',
+  'i-obs-q':'obs_q','i-obs-hint':'obs_hint',
+  'i-obs1':'obs1','i-obs2':'obs2','i-obs3':'obs3','i-obs4':'obs4',
+  'i-obs5':'obs5','i-obs6':'obs6','i-obs7':'obs7','i-obs8':'obs8',
+  tierBadge:'select_above', contBtn:'cont',
+  'i-where':'where','i-detected':'detected','ovLink':'not_here',
+  'i-when':'when','tNow':'now','tEarly':'earlier','i-submit-obs':'submit_obs',
+  'i-bag-title':'bag_title','i-bag-sub':'bag_sub',
+  'i-bag-q':'bag_q','i-bag-hint':'bag_hint',
+  'i-bag-t1':'bag_t1','i-bag-t2':'bag_t2','i-bag-t3':'bag_t3','i-bag-t4':'bag_t4',
+  'i-bag-where':'bag_where', bagOvLink:'not_here', bagContBtn:'cont','i-bag-submit':'bag_submit',
+  'i-bag-alert':'bag_alert','i-bag-alert2':'bag_alert',
+  'i-bag-conf-head':'bag_conf_head','i-bag-conf-sub':'bag_conf_sub',
+  'i-bag-conf-info':'bag_conf_info','i-bag-conf-safety':'bag_conf_safety',
+  'i-done-a':'done','i-done-b':'done',
+};
+
+function setLang(l) {
+  curLang = l;
+  document.getElementById('langLabel').textContent = LANG_NAMES[l];
+  const t = L[l];
+  for (const [id, key] of Object.entries(I18N_MAP)) {
+    const el = document.getElementById(id);
+    if (!el || t[key] === undefined) continue;
+    if (el.tagName === 'BUTTON' || el.tagName === 'SPAN' || el.tagName === 'P' || el.tagName === 'DIV') {
+      el.innerHTML = t[key];
+    } else {
+      el.textContent = t[key];
+    }
+  }
+  // update lang picker highlight
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.classList.toggle('cur', btn.getAttribute('onclick').includes("'"+l+"'"));
+  });
+  closeLangPicker();
+  // keep tier badge correct if nothing selected
+  updateTierBadge();
+}
+
+function toggleLangPicker(e) { e.stopPropagation(); document.getElementById('langPicker').classList.toggle('open'); }
+function closeLangPicker()   { document.getElementById('langPicker').classList.remove('open'); }
+document.addEventListener('click', closeLangPicker);
 
 /* ── INIT ── */
 renderDB();
