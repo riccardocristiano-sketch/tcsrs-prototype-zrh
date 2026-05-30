@@ -296,7 +296,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
         <div class="s1-logo" id="s1logo" style="color:var(--text-3)">ZRH SAFEGUARDING</div>
         <div class="s1-center">
           <div id="s1badge" style="display:none;text-align:center"><div class="ab-badge">✈️ Swiss International Air Lines · Onboard</div></div>
-          <div class="s1-head" id="s1head">Not sure if something is right?</div>
+          <div class="s1-head" id="s1head">Something seems wrong?</div>
           <p style="font-size:13px;color:var(--text-2);line-height:1.55;text-align:center;margin-bottom:28px;" id="s1sub">Share a quick observation.<br>No details needed. Strictly confidential.</p>
           <button class="btn-p" id="s1btn" onclick="startFlow()" style="margin-top:0;margin-bottom:14px;">Start</button>
           <div class="trust-row">
@@ -420,7 +420,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
     <!-- S3: AIRPORT LOCATION -->
     <div class="screen" id="s3">
       <div class="nav-bar"><button class="back-btn blue" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
-      <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>
+      <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="heading" style="margin-bottom:12px;" id="i-where">Where is this?</div>
         <div class="loc-card" id="autoCard">
@@ -441,21 +441,21 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
           <button class="time-btn" id="tEarly" onclick="selTime('early')">Earlier today</button>
         </div>
         <div class="hint" id="tierInfo" style="text-align:center;margin-bottom:8px;"></div>
-        <button class="btn-p" id="i-submit-obs" onclick="goTo(4)">Submit observation</button>
+        <button class="btn-p" id="i-s3-next" onclick="goTo(4)">Next</button>
       </div>
     </div>
 
     <!-- S3B: AIRBORNE FLIGHT DETAILS -->
     <div class="screen" id="s3b">
-      <div class="nav-bar"><button class="back-btn amber" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
-      <div class="progress"><div class="dot done am"></div><div class="dot done am"></div><div class="dot active am"></div></div>
+      <div class="nav-bar"><button class="back-btn amber" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s3b-back">Back</span></button></div>
+      <div class="progress"><div class="dot done am"></div><div class="dot done am"></div><div class="dot active am"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
-        <div class="heading" style="margin-bottom:2px;">Flight details</div>
-        <p class="hint" style="margin-bottom:12px;">From your boarding pass — used to reach the crew</p>
+        <div class="heading" style="margin-bottom:2px;" id="i-s3b-head">Flight details</div>
+        <p class="hint" style="margin-bottom:12px;" id="i-s3b-sub">From your boarding pass — used to reach the crew</p>
 
         <!-- Flight number -->
         <div class="fl-card">
-          <div class="fl-label">Your flight number</div>
+          <div class="fl-label" id="i-s3b-fl-label">Your flight number</div>
           <div style="display:flex;align-items:center;gap:8px;">
             <div class="fl-pfx">LX</div>
             <input class="fl-inp" id="flNum" type="text" placeholder="038" maxlength="4" inputmode="numeric"
@@ -464,80 +464,95 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
               <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
             </div>
           </div>
-          <!-- Route confirmation — stacked below -->
           <div id="flResult" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--amber-100);">
             <div class="fl-route"><span id="flFrom">ZRH</span><span class="fl-arr">→</span><span id="flTo">JFK</span></div>
             <div class="fl-meta" id="flMeta"></div>
           </div>
         </div>
 
-        <!-- Seat: stacked -->
-        <div class="sec-lbl">Suspected person's seat</div>
+        <!-- Seat -->
+        <div class="sec-lbl" id="i-s3b-seat-label">Suspected person's seat</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
           <div class="seat-fld">
-            <div class="seat-lbl">Row</div>
+            <div class="seat-lbl" id="i-s3b-row">Row</div>
             <input class="seat-inp" id="sRow" type="text" placeholder="24" maxlength="3" inputmode="numeric" style="font-size:22px;padding:10px 14px;text-align:left;"/>
           </div>
           <div class="seat-fld">
-            <div class="seat-lbl">Seat letter</div>
+            <div class="seat-lbl" id="i-s3b-seat-letter">Seat letter</div>
             <input class="seat-inp" id="sLetter" type="text" placeholder="A" maxlength="1" style="font-size:22px;padding:10px 14px;text-align:left;"/>
           </div>
         </div>
 
         <div class="hint" id="tierInfoB" style="text-align:center;margin:8px 0;"></div>
-        <button class="btn-p am" onclick="goTo(4)" style="margin-top:auto;">Submit to flight crew</button>
+        <button class="btn-p am" id="i-s3b-next" onclick="goTo(4)" style="margin-top:auto;">Next</button>
       </div>
     </div>
 
-    <!-- S4: AIRPORT CONFIRMATION -->
-    <div class="screen" id="s4a">
-      <div class="screen-body" style="padding-top:20px;">
-        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px;">
-          <div class="chk-ring" style="background:var(--teal-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#0F6E56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="s4-head">Received. Airport security has been notified.</div>
-        </div>
-        <div class="info-box teal">ZRH Safeguarding · On-premise · Swiss privacy<br>Raw data deleted within 12 hours</div>
-        <div class="divider"></div>
+    <!-- S4INFO: OPTIONAL INFO (airport) -->
+    <div class="screen" id="s4info">
+      <div class="nav-bar"><button class="back-btn blue" onclick="goTo(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-back-s4">Back</span></button></div>
+      <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>
+      <div class="screen-body" style="padding-top:10px;">
         <div class="opt-group">
-          <div class="opt-lbl">Do you want us to contact you? <span class="opt-tag">Optional</span></div>
-          <p class="opt-hint">Only used if follow-up is needed. Never shared.</p>
+          <div class="opt-lbl" id="i-s4a-contact-lbl">Do you want us to contact you? <span class="opt-tag">Optional</span></div>
+          <p class="opt-hint" id="i-s4a-contact-hint">Only used if follow-up is needed. Never shared.</p>
           <div class="ph-wrap"><span class="ph-pfx">+</span><input class="ph-inp" type="tel" placeholder="41 79 123 45 67" inputmode="tel"/></div>
         </div>
         <div class="divider"></div>
         <div class="opt-group">
-          <div class="opt-lbl">Anything else you want to tell us? <span class="opt-tag">Optional</span></div>
-          <p class="opt-hint">Clothing, direction of travel, who they're with, etc.</p>
-          <textarea class="opt-inp ta" placeholder="e.g. Blue jacket, heading toward Gate B32…" rows="3"></textarea>
+          <div class="opt-lbl" id="i-s4a-notes-lbl">Anything else you want to tell us? <span class="opt-tag">Optional</span></div>
+          <p class="opt-hint" id="i-s4a-notes-hint">Clothing, direction of travel, who they're with, etc.</p>
+          <textarea class="opt-inp ta" id="ta-airport-notes" placeholder="e.g. Blue jacket, heading toward Gate B32…" rows="3"></textarea>
         </div>
-        <button class="btn-p" id="i-done-a" onclick="resetApp()" style="margin-top:14px;">Done</button>
+        <button class="btn-p" id="i-send-btn" onclick="goTo(5)" style="margin-top:auto;">Send</button>
       </div>
     </div>
 
-    <!-- S4: AIRBORNE CONFIRMATION -->
-    <div class="screen" id="s4b">
+    <!-- S4DONE: CONFIRMATION (airport) -->
+    <div class="screen" id="s4done">
+      <div class="screen-body" style="padding-top:20px;">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px;">
+          <div class="chk-ring" style="background:var(--teal-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#0F6E56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="s4-head" id="i-s4a-head">Received. Airport security has been notified.</div>
+        </div>
+        <div class="info-box teal" id="i-s4a-info">ZRH Safeguarding · On-premise · Swiss privacy<br>Raw data deleted within 12 hours</div>
+        <button class="btn-p" id="i-done-a" onclick="resetApp()" style="margin-top:20px;">Done</button>
+      </div>
+    </div>
+
+    <!-- S4BINFO: OPTIONAL INFO (airborne) -->
+    <div class="screen" id="s4binfo">
+      <div class="nav-bar"><button class="back-btn amber" onclick="goTo(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s4b-back">Back</span></button></div>
+      <div class="progress"><div class="dot done am"></div><div class="dot done am"></div><div class="dot done am"></div><div class="dot active am"></div></div>
+      <div class="screen-body" style="padding-top:10px;">
+        <div class="opt-group">
+          <div class="opt-lbl" id="i-s4b-notes-lbl">Anything else for the crew? <span class="opt-tag">Optional</span></div>
+          <p class="opt-hint" id="i-s4b-notes-hint">Clothing, seat neighbours, behaviour, etc.</p>
+          <textarea class="opt-inp ta" id="ta-airborne-notes" placeholder="e.g. Window seat, red hoodie, appears sedated…" rows="3"></textarea>
+        </div>
+        <button class="btn-p am" id="i-s4b-send" onclick="goTo(5)" style="margin-top:auto;">Send</button>
+      </div>
+    </div>
+
+    <!-- S4BDONE: CONFIRMATION (airborne) -->
+    <div class="screen" id="s4bdone">
       <div class="screen-body" style="padding-top:20px;">
         <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px;">
           <div class="chk-ring" style="background:var(--amber-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#B8760A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="s4-head">Report sent to the flight crew.</div>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:14px;">The captain and cabin crew<br>have been notified discreetly.</p>
+          <div class="s4-head" id="i-s4b-head">Report sent to the flight crew.</div>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:14px;" id="i-s4b-sub">The captain and cabin crew<br>have been notified discreetly.</p>
         </div>
         <div class="crew-card">
-          <div class="crew-title">Notification chain</div>
+          <div class="crew-title" id="i-s4b-chain-title">Notification chain</div>
           <div class="crew-chain">
-            <div class="crew-step"><div class="cdot done"></div><span>Report received · <strong id="c4flight">LX038</strong> · <span id="c4route">ZRH→JFK</span></span></div>
-            <div class="crew-step"><div class="cdot done"></div><span>Captain notified · <span id="c4captain">Capt. M. Berger</span></span></div>
-            <div class="crew-step"><div class="cdot done"></div><span>Senior cabin crew alerted · <span id="c4senior">A. Müller</span></span></div>
-            <div class="crew-step"><div class="cdot pending"></div><span style="color:var(--text-3)">Destination airport pre-notified on landing</span></div>
+            <div class="crew-step"><div class="cdot done"></div><span><span id="i-chain1">Report received</span> · <strong id="c4flight">LX038</strong> · <span id="c4route">ZRH→JFK</span></span></div>
+            <div class="crew-step"><div class="cdot done"></div><span><span id="i-chain2">Captain notified</span> · <span id="c4captain">Capt. M. Berger</span></span></div>
+            <div class="crew-step"><div class="cdot done"></div><span><span id="i-chain3">Senior cabin crew alerted</span> · <span id="c4senior">A. Müller</span></span></div>
+            <div class="crew-step"><div class="cdot pending"></div><span style="color:var(--text-3)" id="i-s4b-chain4">Destination airport pre-notified on landing</span></div>
           </div>
         </div>
-        <div class="info-box teal" style="margin-top:10px;">Aircraft <span id="c4reg">HB-JNH</span> · Swiss privacy standards<br>Raw data deleted within 12 hours</div>
-        <div class="divider"></div>
-        <div class="opt-group">
-          <div class="opt-lbl">Anything else for the crew? <span class="opt-tag">Optional</span></div>
-          <p class="opt-hint">Clothing, seat neighbours, behaviour, etc.</p>
-          <textarea class="opt-inp ta" placeholder="e.g. Window seat, red hoodie, appears sedated…" rows="3"></textarea>
-        </div>
-        <button class="btn-p am" onclick="resetApp()" style="margin-top:12px;">Done</button>
+        <div class="info-box teal" id="i-s4b-info" style="margin-top:10px;"><span id="i-s4b-aircraft-word">Aircraft</span> <span id="c4reg">HB-JNH</span><span id="i-s4b-privacy-text"> · Swiss privacy standards<br>Raw data deleted within 12 hours</span></div>
+        <button class="btn-p am" id="i-done-c" onclick="resetApp()" style="margin-top:14px;">Done</button>
       </div>
     </div>
 
@@ -626,8 +641,8 @@ const FLIGHTS = {
 
 /* Screen routing per mode */
 const ROUTE = {
-  airport:  {1:'s1','type':'s_type',2:'s2',3:'s3', 4:'s4a','bag1':'sbag1','bag2':'sbag2','bag3':'sbag3'},
-  airborne: {1:'s1',2:'s2',3:'s3b',4:'s4b'},
+  airport:  {1:'s1','type':'s_type',2:'s2',3:'s3',4:'s4info',5:'s4done','bag1':'sbag1','bag2':'sbag2','bag3':'sbag3'},
+  airborne: {1:'s1',2:'s2',3:'s3b',4:'s4binfo',5:'s4bdone'},
 };
 
 /* ════════════════════════════════
@@ -661,16 +676,16 @@ function setMode(m) {
     document.getElementById('s1logo').textContent='ZRH SAFEGUARDING';
     document.getElementById('s1logo').style.color='var(--text-3)';
     document.getElementById('s1badge').style.display='none';
-    document.getElementById('s1head').textContent='Not sure if something is right?';
-    document.getElementById('s1sub').innerHTML='Share a quick observation.<br>No details needed. Strictly confidential.';
+    document.getElementById('s1head').textContent=L[curLang].head||'Something seems wrong?';
+    document.getElementById('s1sub').innerHTML=L[curLang].sub||'Share a quick observation.<br>No details needed. Strictly confidential.';
     document.getElementById('s1btn').style.background='';
     const bln=document.getElementById('bagLocName'); if(bln) bln.textContent='Gate B32 · Pier B';
   } else {
     document.getElementById('s1logo').textContent='SWISS SAFEGUARDING · ONBOARD';
     document.getElementById('s1logo').style.color='var(--amber-600)';
     document.getElementById('s1badge').style.display='block';
-    document.getElementById('s1head').textContent='Concerned about a fellow passenger?';
-    document.getElementById('s1sub').innerHTML='Report discreetly. The crew will<br>handle it. No personal data stored.';
+    document.getElementById('s1head').textContent=L[curLang].ab_head||'Concerned about a fellow passenger?';
+    document.getElementById('s1sub').innerHTML=L[curLang].ab_sub||'Report discreetly. The crew will<br>handle it. No personal data stored.';
     document.getElementById('s1btn').style.background='var(--amber-600)';
   }
   resetApp();
@@ -694,7 +709,7 @@ function goTo(toStep) {
   step = toStep;
   updateLabel();
   if (toStep===3) { updTierInfo(); updTierInfoB(); }
-  if (toStep===4 && mode==='airborne') fillAirborneConfirm();
+  if (toStep===5 && mode==='airborne') fillAirborneConfirm();
 }
 
 function startFlow() {
@@ -708,7 +723,8 @@ function updateLabel() {
     'type':'Screen — Report Type',
     2:'Screen 2 — Indicators',
     3:mode==='airport'?'Screen 3 — Location & Time':'Screen 3 — Flight Details',
-    4:'Screen 4 — Confirmation',
+    4:mode==='airport'?'Screen 4 — Additional Info':'Screen 4 — Additional Info',
+    5:mode==='airport'?'Screen 5 — Confirmation':'Screen 5 — Confirmation',
     'bag1':'Screen B1 — Item Type',
     'bag2':'Screen B2 — Location',
     'bag3':'Screen B3 — Confirmation',
@@ -717,7 +733,7 @@ function updateLabel() {
 }
 
 function resetApp() {
-  ['s1','s_type','s2','s3','s3b','s4a','s4b','sbag1','sbag2','sbag3'].forEach(id=>{
+  ['s1','s_type','s2','s3','s3b','s4info','s4done','s4binfo','s4bdone','sbag1','sbag2','sbag3'].forEach(id=>{
     const el=document.getElementById(id);
     if (!el) return;
     el.classList.remove('active','exit','back-exit');
@@ -748,13 +764,15 @@ function calcTier(n){ return n>=3?3:mxTier()>=2?2:1; }
 
 function updateTierBadge(){
   const n=nSel(), badge=document.getElementById('tierBadge'), btn=document.getElementById('contBtn');
-  if(!n){ badge.textContent='Select observations above'; badge.style.cssText=''; btn.disabled=true; return; }
+  const tl=L[curLang];
+  if(!n){ badge.textContent=tl.select_above||'Select observations above'; badge.style.cssText=''; btn.disabled=true; return; }
   const t=calcTier(n);
-  const msgs  =['','Trend log','Queued for triage','Immediate alert'];
+  const msgs  =['',tl.tier1,tl.tier2,tl.tier3];
   const colors=['','#E6F1FB','#fef3c7','#fee2e2'];
   const bords =['','#B5D4F4','#fbbf24','#fca5a5'];
   const txts  =['','#0C447C','#92400e','#991b1b'];
-  badge.textContent=`${n} indicator${n>1?'s':''} · Tier ${t} — ${msgs[t]}`;
+  const ind = n===1 ? (tl.tier_indicator||'indicator') : (tl.tier_indicators||'indicators');
+  badge.textContent=`${n} ${ind} · Tier ${t} — ${msgs[t]}`;
   badge.style.background=colors[t]; badge.style.borderColor=bords[t]; badge.style.color=txts[t];
   btn.disabled=false;
 }
@@ -762,14 +780,18 @@ function updateTierBadge(){
 function updTierInfo(){
   const n=nSel(), el=document.getElementById('tierInfo');
   if(!n){el.textContent='';return;}
-  const msgs=['','Tier 1 — trend log','Tier 2 — queued for triage','Tier 3 — immediate alert'];
-  el.textContent=`${n} indicator${n>1?'s':''} · ${msgs[calcTier(n)]}`;
+  const tl=L[curLang];
+  const msgs=['',tl.tier1_info,tl.tier2_info,tl.tier3_info];
+  const ind = n===1 ? (tl.tier_indicator||'indicator') : (tl.tier_indicators||'indicators');
+  el.textContent=`${n} ${ind} · ${msgs[calcTier(n)]}`;
 }
 function updTierInfoB(){
   const n=nSel(), el=document.getElementById('tierInfoB');
   if(!el||!n){if(el)el.textContent='';return;}
-  const msgs=['','Tier 1 — crew awareness','Tier 2 — crew intervention','Tier 3 — captain + authorities'];
-  el.textContent=`${n} indicator${n>1?'s':''} · ${msgs[calcTier(n)]}`;
+  const tl=L[curLang];
+  const msgs=['',tl.tier1b,tl.tier2b,tl.tier3b];
+  const ind = n===1 ? (tl.tier_indicator||'indicator') : (tl.tier_indicators||'indicators');
+  el.textContent=`${n} ${ind} · ${msgs[calcTier(n)]}`;
 }
 
 /* ════════════════════════════════
@@ -899,7 +921,7 @@ function selBagArea(el, g) {
 const LANG_NAMES = {en:'EN',de:'DE',es:'ES',zh:'中文',hi:'हि'};
 const L = {
   en:{
-    logo:'ZRH SAFEGUARDING', head:'Not sure if something is right?',
+    logo:'ZRH SAFEGUARDING', head:'Something seems wrong?',
     sub:'Share a quick observation.<br>No details needed. Strictly confidential.',
     start:'Start', t1:'Under 2 min', t2:'Anonymous', t3:'Swiss privacy',
     rtype_head:'What do you want to report?', rtype_sub:'Select the type of concern.',
@@ -923,33 +945,71 @@ const L = {
     bag_conf_info:'Direct alert · Security Operations<br>On-premise · Swiss privacy standards',
     bag_conf_safety:'<strong>If the situation changes</strong>, call 117 or alert airport staff immediately.',
     done:'Done',
+    next:'Next', send:'Send', back:'Back',
+    ta_airport:'e.g. Blue jacket, heading toward Gate B32…',
+    ta_airborne:'e.g. Window seat, red hoodie, appears sedated…',
+    s3b_head:'Flight details', s3b_sub:'From your boarding pass — used to reach the crew',
+    s3b_fl_label:'Your flight number', s3b_seat_label:"Suspected person's seat",
+    s3b_row:'Row', s3b_seat_letter:'Seat letter',
+    chain1:'Report received', chain2:'Captain notified', chain3:'Senior cabin crew alerted',
+    ab_head:'Concerned about a fellow passenger?',
+    ab_sub:'Report discreetly. The crew will<br>handle it. No personal data stored.',
+    s4b_aircraft:'Aircraft', s4b_privacy:' · Swiss privacy standards<br>Raw data deleted within 12 hours',
+    tier_indicator:'indicator', tier_indicators:'indicators',
+    tier1:'Trend log', tier2:'Queued for triage', tier3:'Immediate alert',
+    tier1_info:'Tier 1 — trend log', tier2_info:'Tier 2 — queued for triage', tier3_info:'Tier 3 — immediate alert',
+    tier1b:'Tier 1 — crew awareness', tier2b:'Tier 2 — crew intervention', tier3b:'Tier 3 — captain + authorities',
+    s4a_head:'Received. Airport security has been notified.',
+    s4a_info:'ZRH Safeguarding · On-premise · Swiss privacy<br>Raw data deleted within 12 hours',
+    s4a_contact_lbl:'Do you want us to contact you? <span class="opt-tag">Optional</span>',
+    s4a_contact_hint:'Only used if follow-up is needed. Never shared.',
+    s4a_notes_lbl:'Anything else you want to tell us? <span class="opt-tag">Optional</span>',
+    s4a_notes_hint:'Clothing, direction of travel, who they\'re with, etc.',
+    s4b_head:'Report sent to the flight crew.',
+    s4b_sub:'The captain and cabin crew<br>have been notified discreetly.',
+    s4b_chain_title:'Notification chain',
+    s4b_chain4:'Destination airport pre-notified on landing',
+    s4b_notes_lbl:'Anything else for the crew? <span class="opt-tag">Optional</span>',
+    s4b_notes_hint:'Clothing, seat neighbours, behaviour, etc.',
   },
   de:{
     // Natural Swiss German register — formal but direct, as you'd see in ZRH signage
-    logo:'ZRH SAFEGUARDING', head:'Etwas stimmt hier nicht?',
+    logo:'ZRH SAFEGUARDING', head:'Etwas stimmt nicht?',
     sub:'Beobachtung anonym melden.<br>Keine Details nötig. Vollständig vertraulich.',
-    start:'Weiter', t1:'Unter 2 Min.', t2:'Anonym', t3:'Datenschutz CH',
+    start:'Weiter', t1:'Unter 2 Min.', t2:'Anonym', t3:'Schweizer Datenschutz',
     rtype_head:'Was möchten Sie melden?', rtype_sub:'Bitte wählen Sie die Art Ihrer Beobachtung.',
-    rtype_person_title:'Bedenken zu einer Person', rtype_person_desc:'Möglicher Menschenhandel, Ausbeutung oder eine Person in Not',
+    rtype_person_title:'Sorgen um eine Person', rtype_person_desc:'Möglicher Menschenhandel, Ausbeutung oder eine Person in Not',
     rtype_bag_title:'Herrenloses Gepäck', rtype_bag_desc:'Verdächtiger oder herrenloser Gegenstand im Flughafen',
     obs_q:'Was haben Sie beobachtet?', obs_hint:'Alles Zutreffende auswählen',
     obs1:'Auswendig gelernte Antworten', obs2:'Andere Person antwortet für sie', obs3:'Bewegung wird kontrolliert',
-    obs4:'Minderjährige in sichtlicher Not', obs5:'Weicht Sicherheitspersonal aus', obs6:'Hinweise auf körperliche Brandzeichen',
+    obs4:'Minderjährige in sichtlicher Not', obs5:'Meidet Sicherheitspersonal & Behörden', obs6:'Auffällige Brandzeichen oder Tätowierungen',
     obs7:'Kein persönliches Gepäck', obs8:'Erwachsener steuert ein Kind',
     select_above:'Bitte oben auswählen', cont:'Weiter',
-    where:'Wo geschieht das?', detected:'Standort via QR erkannt · Schengen',
-    not_here:'Anderen Ort wählen', when:'Wann?', now:'Gerade jetzt', earlier:'Früher heute',
+    where:'Wo passiert das?', detected:'Standort via QR erkannt · Schengen',
+    not_here:'Anderen Ort wählen', when:'Wann?', now:'Jetzt', earlier:'Früher',
     submit_obs:'Meldung absenden', back:'Zurück',
     bag_title:'Sicherheitsmeldung', bag_sub:'Wird direkt an den Sicherheitsdienst weitergeleitet',
     bag_q:'Was haben Sie gesehen?', bag_hint:'Bitte auswählen',
     bag_t1:'Koffer / Gepäck', bag_t2:'Paket / Karton', bag_t3:'Rucksack', bag_t4:'Anderer Gegenstand',
     bag_where:'Wo befindet sich der Gegenstand?', bag_submit:'Meldung absenden',
-    bag_alert:'<strong>Wenn Sie sich unsicher fühlen</strong>, entfernen Sie sich und wenden Sie sich direkt an das Flughafenpersonal oder rufen Sie 117 an.',
+    bag_alert:'<strong>Wenn Sie sich in Gefahr fühlen</strong>, entfernen Sie sich und wenden Sie sich direkt an das Flughafenpersonal oder rufen Sie 117 an.',
     bag_conf_head:'Meldung an den Sicherheitsdienst übermittelt.',
     bag_conf_sub:'Ihr Standort wurde weitergeleitet.<br>Es wurden keine persönlichen Daten gespeichert.',
     bag_conf_info:'Direktalarm · Sicherheitsdienst<br>Lokal gespeichert · Schweizer Datenschutz',
     bag_conf_safety:'<strong>Falls sich die Situation verändert</strong>, rufen Sie sofort 117 an.',
-    done:'Fertig',
+    done:'Fertig', next:'Weiter', send:'Absenden', back:'Zurück', tier_indicator:'Indikator', tier_indicators:'Indikatoren', tier1:'Trendsignal', tier2:'In Triage-Warteschlange', tier3:'Sofortiger Alarm', tier1_info:'Tier 1 — Trendsignal', tier2_info:'Tier 2 — In Triage-Warteschlange', tier3_info:'Tier 3 — Sofortiger Alarm', tier1b:'Tier 1 — Crew informiert', tier2b:'Tier 2 — Crew greift ein', tier3b:'Tier 3 — Kapitän + Behörden', ta_airport:'z.B. Blaue Jacke, Richtung Gate B32…', ta_airborne:'z.B. Fensterplatz, roter Hoodie, wirkt sediert…', s3b_head:'Flugdetails', s3b_sub:'Von Ihrer Bordkarte — wird verwendet, um die Crew zu erreichen', s3b_fl_label:'Ihre Flugnummer', s3b_seat_label:'Sitz der verdächtigen Person', s3b_row:'Reihe', s3b_seat_letter:'Platzbuchstabe', chain1:'Meldung erhalten', chain2:'Kapitän informiert', chain3:'Leitende Kabinenbesatzung alarmiert', ab_head:'Etwas bei einem Mitreisenden beobachtet?', ab_sub:'Diskret melden. Die Crew kümmert sich.<br>Keine persönlichen Daten gespeichert.', s4b_aircraft:'Flugzeug', s4b_privacy:' · Schweizer Datenschutz<br>Rohdaten nach 12 Stunden gelöscht',
+    s4a_head:'Meldung erhalten. Der Sicherheitsdienst wurde informiert.',
+    s4a_info:'ZRH Safeguarding · Lokal gespeichert · Schweizer Datenschutz<br>Rohdaten werden nach 12 Stunden gelöscht',
+    s4a_contact_lbl:'Dürfen wir Sie kontaktieren? <span class="opt-tag">Optional</span>',
+    s4a_contact_hint:'Nur bei Rückfragen. Wird nicht weitergegeben.',
+    s4a_notes_lbl:'Möchten Sie noch etwas mitteilen? <span class="opt-tag">Optional</span>',
+    s4a_notes_hint:'Kleidung, Reiserichtung, Begleitpersonen usw.',
+    s4b_head:'Meldung an die Crew übermittelt.',
+    s4b_sub:'Kapitän und Kabinenpersonal<br>wurden diskret informiert.',
+    s4b_chain_title:'Benachrichtigungskette',
+    s4b_chain4:'Zielflughafen wird vor der Landung vorinformiert',
+    s4b_notes_lbl:'Noch etwas für die Crew? <span class="opt-tag">Optional</span>',
+    s4b_notes_hint:'Kleidung, Sitznachbarn, Verhalten usw.',
   },
   es:{
     // Latin American neutral Spanish — works for ZRH's international mix
@@ -976,7 +1036,19 @@ const L = {
     bag_conf_sub:'Su ubicación fue registrada.<br>No se guardaron datos personales.',
     bag_conf_info:'Alerta directa · Seguridad del aeropuerto<br>Almacenamiento local · Privacidad suiza',
     bag_conf_safety:'<strong>Si la situación cambia</strong>, llame al 117 o avise al personal inmediatamente.',
-    done:'Listo',
+    done:'Listo', next:'Siguiente', send:'Enviar', back:'Volver', tier_indicator:'indicador', tier_indicators:'indicadores', tier1:'Registro de tendencia', tier2:'En cola de triaje', tier3:'Alerta inmediata', tier1_info:'Nivel 1 — registro de tendencia', tier2_info:'Nivel 2 — en cola de triaje', tier3_info:'Nivel 3 — alerta inmediata', tier1b:'Nivel 1 — aviso a la tripulación', tier2b:'Nivel 2 — intervención de la tripulación', tier3b:'Nivel 3 — capitán + autoridades', ta_airport:'Ej. Chaqueta azul, dirección puerta B32…', ta_airborne:'Ej. Asiento de ventana, sudadera roja, parece sedado…', s3b_head:'Detalles del vuelo', s3b_sub:'De su tarjeta de embarque — usados para contactar a la tripulación', s3b_fl_label:'Su número de vuelo', s3b_seat_label:'Asiento de la persona sospechosa', s3b_row:'Fila', s3b_seat_letter:'Letra del asiento', chain1:'Reporte recibido', chain2:'Capitán notificado', chain3:'Jefe de cabina alertado', ab_head:'¿Algo le preocupa de un pasajero?', ab_sub:'Reporte discretamente. La tripulación<br>se encargará. Sin datos personales.', s4b_aircraft:'Aeronave', s4b_privacy:' · Privacidad suiza<br>Datos eliminados en 12 horas',
+    s4a_head:'Recibido. Se ha notificado a seguridad del aeropuerto.',
+    s4a_info:'ZRH Safeguarding · Almacenamiento local · Privacidad suiza<br>Datos eliminados en 12 horas',
+    s4a_contact_lbl:'¿Desea que nos comuniquemos con usted? <span class="opt-tag">Opcional</span>',
+    s4a_contact_hint:'Solo si es necesario un seguimiento. No se compartirá.',
+    s4a_notes_lbl:'¿Algo más que quiera contarnos? <span class="opt-tag">Opcional</span>',
+    s4a_notes_hint:'Ropa, dirección de viaje, acompañantes, etc.',
+    s4b_head:'Reporte enviado a la tripulación.',
+    s4b_sub:'El capitán y la tripulación de cabina<br>han sido notificados discretamente.',
+    s4b_chain_title:'Cadena de notificación',
+    s4b_chain4:'Aeropuerto de destino prenotificado antes del aterrizaje',
+    s4b_notes_lbl:'¿Algo más para la tripulación? <span class="opt-tag">Opcional</span>',
+    s4b_notes_hint:'Ropa, vecinos de asiento, comportamiento, etc.',
   },
   zh:{
     // Mainland Simplified Chinese — formal but accessible register
@@ -1003,7 +1075,19 @@ const L = {
     bag_conf_sub:'您的位置信息已转交。<br>未收集任何个人信息。',
     bag_conf_info:'直接警报 · 机场安保<br>本地存储 · 符合瑞士数据保护法',
     bag_conf_safety:'<strong>如情况有变</strong>，请立即拨打117或联系机场工作人员。',
-    done:'完成',
+    done:'完成', next:'继续', send:'提交', back:'返回', tier_indicator:'项', tier_indicators:'项', tier1:'趋势记录', tier2:'等待分诊', tier3:'立即警报', tier1_info:'第1级 — 趋势记录', tier2_info:'第2级 — 等待分诊', tier3_info:'第3级 — 立即警报', tier1b:'第1级 — 通知机组', tier2b:'第2级 — 机组介入', tier3b:'第3级 — 机长+当局', ta_airport:'例如：蓝色夹克，朝B32登机口方向走…', ta_airborne:'例如：靠窗座位，红色连帽衫，看似被镇静…', s3b_head:'航班信息', s3b_sub:'来自您的登机牌 — 用于联系机组人员', s3b_fl_label:'您的航班号', s3b_seat_label:'疑似人员的座位', s3b_row:'排', s3b_seat_letter:'座位字母', chain1:'报告已收到', chain2:'机长已通知', chain3:'高级乘务员已警示', ab_head:'对某位乘客有顾虑？', ab_sub:'悄悄举报，机组人员将<br>妥善处理。不存储个人信息。', s4b_aircraft:'飞机', s4b_privacy:' · 瑞士数据保护<br>原始数据12小时内删除',
+    s4a_head:'已收到。机场安保已收到通知。',
+    s4a_info:'ZRH 安全举报 · 本地存储 · 瑞士数据保护<br>原始数据将在12小时内删除',
+    s4a_contact_lbl:'是否希望我们联系您？ <span class="opt-tag">可选</span>',
+    s4a_contact_hint:'仅在需要跟进时使用，不会对外共享。',
+    s4a_notes_lbl:'还有其他想告诉我们的吗？ <span class="opt-tag">可选</span>',
+    s4a_notes_hint:'如衣着、行进方向、同行人员等。',
+    s4b_head:'报告已发送至机组人员。',
+    s4b_sub:'机长和客舱乘务员<br>已被悄悄告知。',
+    s4b_chain_title:'通知链',
+    s4b_chain4:'飞机降落前将提前通知目的地机场',
+    s4b_notes_lbl:'还有其他要告诉机组的吗？ <span class="opt-tag">可选</span>',
+    s4b_notes_hint:'如衣着、邻座情况、行为举止等。',
   },
   hi:{
     // Hindustani register — conversational, avoids overly formal Sanskrit-heavy words
@@ -1031,7 +1115,19 @@ const L = {
     bag_conf_sub:'आपकी लोकेशन पहुंच गई है।<br>कोई निजी जानकारी नहीं ली गई।',
     bag_conf_info:'सीधा अलर्ट · सुरक्षा दल<br>लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन',
     bag_conf_safety:'<strong>अगर हालात बदलें</strong>, तो तुरंत 117 पर कॉल करें।',
-    done:'हो गया',
+    done:'हो गया', next:'आगे', send:'भेजें', back:'वापस', tier_indicator:'संकेत', tier_indicators:'संकेत', tier1:'ट्रेंड लॉग', tier2:'समीक्षा की प्रतीक्षा', tier3:'तत्काल अलर्ट', tier1_info:'टियर 1 — ट्रेंड लॉग', tier2_info:'टियर 2 — समीक्षा की प्रतीक्षा', tier3_info:'टियर 3 — तत्काल अलर्ट', tier1b:'टियर 1 — क्रू को जानकारी', tier2b:'टियर 2 — क्रू हस्तक्षेप', tier3b:'टियर 3 — कैप्टन + अधिकारी', ta_airport:'जैसे: नीली जैकेट, गेट B32 की तरफ जा रहे हैं…', ta_airborne:'जैसे: खिड़की वाली सीट, लाल हुडी, बेहोश लग रहे हैं…', s3b_head:'उड़ान विवरण', s3b_sub:'आपके बोर्डिंग पास से — क्रू तक पहुंचने के लिए', s3b_fl_label:'आपका फ्लाइट नंबर', s3b_seat_label:'संदिग्ध व्यक्ति की सीट', s3b_row:'पंक्ति', s3b_seat_letter:'सीट का अक्षर', chain1:'रिपोर्ट मिली', chain2:'कैप्टन को सूचित किया', chain3:'वरिष्ठ केबिन क्रू को अलर्ट किया', ab_head:'किसी सहयात्री को लेकर चिंतित हैं?', ab_sub:'चुपचाप रिपोर्ट करें। क्रू संभाल लेगी।<br>कोई निजी जानकारी नहीं ली जाएगी।', s4b_aircraft:'विमान', s4b_privacy:' · स्विस गोपनीयता<br>12 घंटे में डेटा हटाया जाएगा',
+    s4a_head:'मिल गया। एयरपोर्ट सुरक्षा को सूचित कर दिया गया है।',
+    s4a_info:'ZRH सुरक्षा · लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन<br>12 घंटे में डेटा हटा दिया जाएगा',
+    s4a_contact_lbl:'क्या हम आपसे संपर्क कर सकते हैं? <span class="opt-tag">वैकल्पिक</span>',
+    s4a_contact_hint:'केवल ज़रूरत पड़ने पर। किसी से साझा नहीं किया जाएगा।',
+    s4a_notes_lbl:'कुछ और बताना चाहते हैं? <span class="opt-tag">वैकल्पिक</span>',
+    s4a_notes_hint:'जैसे कपड़े, यात्रा की दिशा, साथ में कौन है आदि।',
+    s4b_head:'रिपोर्ट क्रू को भेज दी गई।',
+    s4b_sub:'कैप्टन और केबिन क्रू को<br>चुपचाप सूचित कर दिया गया है।',
+    s4b_chain_title:'सूचना श्रृंखला',
+    s4b_chain4:'लैंडिंग से पहले गंतव्य हवाई अड्डे को सूचित किया जाएगा',
+    s4b_notes_lbl:'क्रू के लिए कुछ और? <span class="opt-tag">वैकल्पिक</span>',
+    s4b_notes_hint:'जैसे कपड़े, बगल की सीट, व्यवहार आदि।',
   },
 };
 
@@ -1047,8 +1143,9 @@ const I18N_MAP = {
   'i-obs1':'obs1','i-obs2':'obs2','i-obs3':'obs3','i-obs4':'obs4',
   'i-obs5':'obs5','i-obs6':'obs6','i-obs7':'obs7','i-obs8':'obs8',
   tierBadge:'select_above', contBtn:'cont',
-  'i-where':'where','i-detected':'detected','ovLink':'not_here',
-  'i-when':'when','tNow':'now','tEarly':'earlier','i-submit-obs':'submit_obs',
+  'i-where':'where','locSub':'detected','ovLink':'not_here',
+  'i-when':'when','tNow':'now','tEarly':'earlier','i-s3-next':'next',
+  'i-send-btn':'send','i-back-s4':'back',
   'i-bag-title':'bag_title','i-bag-sub':'bag_sub',
   'i-bag-q':'bag_q','i-bag-hint':'bag_hint',
   'i-bag-t1':'bag_t1','i-bag-t2':'bag_t2','i-bag-t3':'bag_t3','i-bag-t4':'bag_t4',
@@ -1056,7 +1153,19 @@ const I18N_MAP = {
   'i-bag-alert':'bag_alert','i-bag-alert2':'bag_alert',
   'i-bag-conf-head':'bag_conf_head','i-bag-conf-sub':'bag_conf_sub',
   'i-bag-conf-info':'bag_conf_info','i-bag-conf-safety':'bag_conf_safety',
-  'i-done-a':'done','i-done-b':'done',
+  'i-done-a':'done','i-done-b':'done','i-done-c':'done',
+  'i-s3b-back':'back','i-s3b-head':'s3b_head','i-s3b-sub':'s3b_sub',
+  'i-s3b-fl-label':'s3b_fl_label','i-s3b-seat-label':'s3b_seat_label',
+  'i-s3b-row':'s3b_row','i-s3b-seat-letter':'s3b_seat_letter','i-s3b-next':'next',
+  'i-s4b-back':'back','i-s4b-send':'send',
+  'i-chain1':'chain1','i-chain2':'chain2','i-chain3':'chain3',
+  'i-s4b-aircraft-word':'s4b_aircraft','i-s4b-privacy-text':'s4b_privacy',
+  'i-s4a-head':'s4a_head','i-s4a-info':'s4a_info',
+  'i-s4a-contact-lbl':'s4a_contact_lbl','i-s4a-contact-hint':'s4a_contact_hint',
+  'i-s4a-notes-lbl':'s4a_notes_lbl','i-s4a-notes-hint':'s4a_notes_hint',
+  'i-s4b-head':'s4b_head','i-s4b-sub':'s4b_sub',
+  'i-s4b-chain-title':'s4b_chain_title','i-s4b-chain4':'s4b_chain4',
+  'i-s4b-notes-lbl':'s4b_notes_lbl','i-s4b-notes-hint':'s4b_notes_hint',
 };
 
 function setLang(l) {
@@ -1077,8 +1186,22 @@ function setLang(l) {
     btn.classList.toggle('cur', btn.getAttribute('onclick').includes("'"+l+"'"));
   });
   closeLangPicker();
-  // keep tier badge correct if nothing selected
   updateTierBadge();
+  updTierInfo();
+  updTierInfoB();
+  // Refresh mode-specific s1 copy
+  if (mode === 'airborne') {
+    document.getElementById('s1head').textContent = t.ab_head || L.en.ab_head;
+    document.getElementById('s1sub').innerHTML   = t.ab_sub  || L.en.ab_sub;
+  } else {
+    document.getElementById('s1head').textContent = t.head || L.en.head;
+    document.getElementById('s1sub').innerHTML   = t.sub  || L.en.sub;
+  }
+  // Textarea placeholders (can't be set via innerHTML)
+  const taA = document.getElementById('ta-airport-notes');
+  const taB = document.getElementById('ta-airborne-notes');
+  if (taA && t.ta_airport)  taA.placeholder = t.ta_airport;
+  if (taB && t.ta_airborne) taB.placeholder = t.ta_airborne;
 }
 
 function toggleLangPicker(e) { e.stopPropagation(); document.getElementById('langPicker').classList.toggle('open'); }
