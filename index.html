@@ -250,16 +250,6 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 </head>
 <body>
 
-<h1>TCSRS — ZRH Prototype v3 · Airport + Airborne</h1>
-
-<div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-  <div style="font-size:10px;color:#546e8a;letter-spacing:.06em;text-transform:uppercase;">Simulate QR scan from:</div>
-  <div class="mode-toggle">
-    <button class="mode-btn act-airport"  id="btnAirport"  onclick="setMode('airport')">🏛 Airport Gate</button>
-    <button class="mode-btn"              id="btnAirborne" onclick="setMode('airborne')">✈️ Aircraft Cabin</button>
-  </div>
-</div>
-
 <div class="device-wrap">
 <div class="device">
 
@@ -293,7 +283,65 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
         </button>
       </div>
       <div class="screen-body" style="padding-top:8px;">
-        <div class="s1-logo" id="s1logo" style="color:var(--text-3)">ZRH SAFEGUARDING</div>
+        <div class="s1-logo" style="display:flex;flex-direction:column;align-items:center;gap:6px;border-bottom:0.5px solid var(--border);padding-bottom:14px;">
+          <span style="display:inline-block;height:20px;width:auto;"><svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 175.64711 25.5288067" style="height:20px;width:auto;display:block;" fill="#1a1f2e" xml:space="preserve">
+<g>
+	<path d="M16.1391106,2.6147408L4.9587884,16.4056931h11.1500816v3.2283497H0v-2.5257816L11.2678118,3.2283506H0.4101497V0
+		h15.728961V2.6147408z"/>
+	<path d="M31.3777695,5.8718634v13.7909517h-3.2870693l-0.1174374-1.5255089
+		c-0.9392033,1.2013817-2.2879715,1.8179283-4.1373138,1.8179283c-2.6405773,0-4.0498238-0.9691505-4.6649017-2.3167439
+		c-0.3526058-0.7339821-0.4400959-1.5569248-0.4400959-2.4371166V5.8718634h3.4908218v7.9792757
+		c0,0.5877733,0,1.4362574,0.3526058,2.1129894c0.3226585,0.6165466,0.9976292,1.0264015,2.0830441,1.0264015
+		c1.2612762,0,2.2004795-0.584837,2.7292404-1.7031336c0.3813782-0.7912331,0.4991093-1.8464069,0.4991093-3.1652279V5.8718634
+		H31.3777695z"/>
+	<path d="M43.1517372,5.6366954v3.2571225c-0.2639427-0.0889587-0.7339821-0.1491451-1.2327995-0.1491451
+		c-1.2028198,0-2.1417618,0.3843136-2.7280655,1.0551739c-0.7339859,0.8258772-0.9979248,2.1159258-0.9979248,3.6986866v6.1642818
+		h-3.4919968V5.8718634h3.2856026l0.1174355,1.5252166c0.9392052-1.2327976,2.2894402-1.8205714,4.2262726-1.8205714
+		C42.6814003,5.5765085,42.9468079,5.6052809,43.1517372,5.6366954z"/>
+	<path d="M45.4168091,0h3.4919968v3.6411426h-3.4919968V0z M45.4168091,5.8718634h3.4919968v13.7909517h-3.4919968V5.8718634z"/>
+	<path d="M51.525013,12.7645502c0-4.3122959,2.9045181-7.1880417,6.7778931-7.1880417
+		c2.6120987,0,4.9887352,1.3505287,5.9264717,3.5812502l-2.874279,1.0836515
+		c-0.4988136-1.1441326-1.6141434-1.8751793-2.8757439-1.8751793c-2.0257912,0-3.3745613,1.7289705-3.3745613,4.3695469
+		c0,2.7007637,1.3790092,4.4326696,3.4030685,4.4326696c1.2918129,0,2.4071426-0.7339821,2.8757172-1.8493433l2.9045143,1.1726122
+		c-1.2028503,2.1731758-3.257122,3.4635181-5.8976669,3.4635181C54.4583015,19.9552345,51.525013,17.1396751,51.525013,12.7645502z"
+		/>
+	<path d="M79.3203583,10.330369v9.3324461h-3.4919968V11.680604c0-0.7052107,0-1.7316122-0.5290527-2.4083443
+		c-0.3813782-0.4674006-0.9676819-0.733983-1.8781204-0.733983c-1.9955521,0-3.1681595,1.4967384-3.1681595,4.6678381v6.4567003
+		h-3.4919968V0h3.4919968v7.3084149c0.9392014-1.1441326,2.2879715-1.7319064,4.0198746-1.7319064
+		c1.9955521,0,3.2856064,0.5592952,4.0498276,1.4365516C79.0851898,7.8961883,79.3203583,9.0972776,79.3203583,10.330369z"/>
+	<path d="M99.3416519,15.1441231h-7.5118713l-1.5539932,4.518692h-3.4922867L93.6503448,0h3.8733749l6.8668823,19.6628151
+		h-3.4923172L99.3416519,15.1441231z M98.2004547,11.9157724l-1.2615662-3.6699142
+		c-0.5305252-1.5539889-1.0293427-3.1681643-1.3531418-4.3695478c-0.3212204,1.2013834-0.8488083,2.8155587-1.3763962,4.3695478
+		l-1.2615738,3.6699142H98.2004547z"/>
+	<path d="M106.4234161,0h3.4919968v3.6411426h-3.4919968V0z M106.4234161,5.8718634h3.4919968v13.7909517h-3.4919968V5.8718634z"/>
+	<path d="M121.687912,5.6366954v3.2571225c-0.2639465-0.0889587-0.7339859-0.1491451-1.2328033-0.1491451
+		c-1.2043152,0-2.1446991,0.3843136-2.7294998,1.0551739c-0.7339859,0.8258772-0.9979553,2.1159258-0.9979553,3.6986866v6.1642818
+		h-3.4919968V5.8718634h3.2855988l0.1177292,1.5252166c0.9374466-1.2327976,2.2906189-1.8205714,4.2259827-1.8205714
+		C121.2175751,5.5765085,121.481514,5.6052809,121.687912,5.6366954z"/>
+	<path d="M137.8296661,12.7930288c0,4.1975012-2.7867889,7.1622057-6.4854736,7.1622057
+		c-1.7603607,0-2.9931946-0.7339821-3.8992157-1.6743622v7.2479343H123.95298V5.8718634h3.19664l0.0889587,1.5252166
+		c0.9976578-1.0264015,2.3167496-1.8205714,4.1056137-1.8205714
+		C134.8966675,5.5765085,137.8296661,8.4522543,137.8296661,12.7930288z M134.2516479,12.7645502
+		c0-2.6379347-1.3819427-4.3983192-3.4922943-4.3983192c-2.0842285,0-3.4635239,1.7603846-3.4635239,4.3983192
+		c0,2.6435127,1.3792953,4.4038973,3.4635239,4.4038973C132.8697052,17.1684475,134.2516479,15.4080629,134.2516479,12.7645502z"/>
+	<path d="M140.1006012,12.7645502c0-4.3122959,2.8440399-7.1880417,7.0703125-7.1880417
+		c4.2259827,0,7.0415344,2.8757458,7.0415344,7.1880417c0,4.3149385-2.8155518,7.1906843-7.0415344,7.1906843
+		C142.9446411,19.9552345,140.1006012,17.0794888,140.1006012,12.7645502z M150.6344604,12.7645502
+		c0-2.6981211-1.3191376-4.3983192-3.4635468-4.3983192c-2.1705017,0-3.4922943,1.7001982-3.4922943,4.3983192
+		c0,2.7007637,1.3217926,4.4038973,3.4922943,4.4038973C149.3153229,17.1684475,150.6344604,15.4653139,150.6344604,12.7645502z"/>
+	<path d="M165.2853241,5.6366954v3.2571225c-0.2639465-0.0889587-0.7339935-0.1491451-1.2328033-0.1491451
+		c-1.2043152,0-2.1417542,0.3843136-2.729538,1.0551739c-0.7339783,0.8258772-0.9979248,2.1159258-0.9979248,3.6986866v6.1642818
+		h-3.4919891V5.8718634h3.2855988l0.1203766,1.5252166c0.9377289-1.2327976,2.2879639-1.8205714,4.2262726-1.8205714
+		C164.8150177,5.5765085,165.0789185,5.6052809,165.2853241,5.6366954z"/>
+	<path d="M169.2535248,16.3167343V8.4810257h-2.2306824V5.8718634h2.2306824V2.0243249h3.4920044v3.8475385h2.9015808v2.6091623
+		h-2.9015808v6.7203484c0,1.4077797,0.3211823,1.789156,1.2298584,1.789156c0.3814087,0,0.8517151-0.057251,1.379303-0.1749802
+		v2.9045162c-0.5275879,0.1174374-1.4077911,0.2351685-1.9667511,0.2351685
+		C170.5435791,19.9552345,169.2535248,18.8398743,169.2535248,16.3167343z"/>
+</g>
+</svg></span>
+          <div id="s1logo" style="font-size:9px;font-weight:600;letter-spacing:.12em;color:var(--text-3);text-transform:uppercase;">ZRH Safeguarding</div>
+        </div>
         <div class="s1-center">
           <div id="s1badge" style="display:none;text-align:center"><div class="ab-badge">✈️ Swiss International Air Lines · Onboard</div></div>
           <div class="s1-head" id="s1head">Something seems wrong?</div>
@@ -500,11 +548,11 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
         </div>
         <div class="divider"></div>
         <div class="opt-group">
-          <div class="opt-lbl" id="i-s4a-notes-lbl">Anything else you want to tell us? <span class="opt-tag">Optional</span></div>
+          <div class="opt-lbl" id="i-s4a-notes-lbl">Describe what you observed <span class="opt-tag" style="background:#dbeafe;color:#1d4ed8;">Required</span></div>
           <p class="opt-hint" id="i-s4a-notes-hint">Clothing, direction of travel, who they're with, etc.</p>
-          <textarea class="opt-inp ta" id="ta-airport-notes" placeholder="e.g. Blue jacket, heading toward Gate B32…" rows="3"></textarea>
+          <textarea class="opt-inp ta" id="ta-airport-notes" placeholder="e.g. Grey jacket, heading toward gates, travelling with one other person…" rows="3" oninput="checkDescRequired()" minlength="10"></textarea>
         </div>
-        <button class="btn-p" id="i-send-btn" onclick="goTo(5)" style="margin-top:auto;">Send</button>
+        <button class="btn-p" id="i-send-btn" onclick="goTo(5)" style="margin-top:auto;opacity:.45;pointer-events:none;" disabled>Send</button>
       </div>
     </div>
 
@@ -515,7 +563,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
           <div class="chk-ring" style="background:var(--teal-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#0F6E56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="s4-head" id="i-s4a-head">Received. Airport security has been notified.</div>
         </div>
-        <div class="info-box teal" id="i-s4a-info">ZRH Safeguarding · On-premise · Swiss privacy<br>Raw data deleted within 12 hours</div>
+        <div class="info-box teal" id="i-s4a-info">ZRH Safeguarding · On-premise · Swiss privacy<br>Personal information &amp; metadata deleted within 12 hours</div>
         <button class="btn-p" id="i-done-a" onclick="resetApp()" style="margin-top:20px;">Done</button>
       </div>
     </div>
@@ -960,7 +1008,7 @@ const L = {
     tier1_info:'Tier 1 — trend log', tier2_info:'Tier 2 — queued for triage', tier3_info:'Tier 3 — immediate alert',
     tier1b:'Tier 1 — crew awareness', tier2b:'Tier 2 — crew intervention', tier3b:'Tier 3 — captain + authorities',
     s4a_head:'Received. Airport security has been notified.',
-    s4a_info:'ZRH Safeguarding · On-premise · Swiss privacy<br>Raw data deleted within 12 hours',
+    s4a_info:'ZRH Safeguarding · On-premise · Swiss privacy<br>Personal information &amp; metadata deleted within 12 hours',
     s4a_contact_lbl:'Do you want us to contact you? <span class="opt-tag">Optional</span>',
     s4a_contact_hint:'Only used if follow-up is needed. Never shared.',
     s4a_notes_lbl:'Anything else you want to tell us? <span class="opt-tag">Optional</span>',
@@ -999,7 +1047,7 @@ const L = {
     bag_conf_safety:'<strong>Falls sich die Situation verändert</strong>, rufen Sie sofort 117 an.',
     done:'Fertig', next:'Weiter', send:'Absenden', back:'Zurück', tier_indicator:'Indikator', tier_indicators:'Indikatoren', tier1:'Trendsignal', tier2:'In Triage-Warteschlange', tier3:'Sofortiger Alarm', tier1_info:'Tier 1 — Trendsignal', tier2_info:'Tier 2 — In Triage-Warteschlange', tier3_info:'Tier 3 — Sofortiger Alarm', tier1b:'Tier 1 — Crew informiert', tier2b:'Tier 2 — Crew greift ein', tier3b:'Tier 3 — Kapitän + Behörden', ta_airport:'z.B. Blaue Jacke, Richtung Gate B32…', ta_airborne:'z.B. Fensterplatz, roter Hoodie, wirkt sediert…', s3b_head:'Flugdetails', s3b_sub:'Von Ihrer Bordkarte — wird verwendet, um die Crew zu erreichen', s3b_fl_label:'Ihre Flugnummer', s3b_seat_label:'Sitz der verdächtigen Person', s3b_row:'Reihe', s3b_seat_letter:'Platzbuchstabe', chain1:'Meldung erhalten', chain2:'Kapitän informiert', chain3:'Leitende Kabinenbesatzung alarmiert', ab_head:'Etwas bei einem Mitreisenden beobachtet?', ab_sub:'Diskret melden. Die Crew kümmert sich.<br>Keine persönlichen Daten gespeichert.', s4b_aircraft:'Flugzeug', s4b_privacy:' · Schweizer Datenschutz<br>Rohdaten nach 12 Stunden gelöscht',
     s4a_head:'Meldung erhalten. Der Sicherheitsdienst wurde informiert.',
-    s4a_info:'ZRH Safeguarding · Lokal gespeichert · Schweizer Datenschutz<br>Rohdaten werden nach 12 Stunden gelöscht',
+    s4a_info:'ZRH Safeguarding · Lokal gespeichert · Schweizer Datenschutz<br>Persönliche Daten &amp; Metadaten werden nach 12 Stunden gelöscht',
     s4a_contact_lbl:'Dürfen wir Sie kontaktieren? <span class="opt-tag">Optional</span>',
     s4a_contact_hint:'Nur bei Rückfragen. Wird nicht weitergegeben.',
     s4a_notes_lbl:'Möchten Sie noch etwas mitteilen? <span class="opt-tag">Optional</span>',
@@ -1038,7 +1086,7 @@ const L = {
     bag_conf_safety:'<strong>Si la situación cambia</strong>, llame al 117 o avise al personal inmediatamente.',
     done:'Listo', next:'Siguiente', send:'Enviar', back:'Volver', tier_indicator:'indicador', tier_indicators:'indicadores', tier1:'Registro de tendencia', tier2:'En cola de triaje', tier3:'Alerta inmediata', tier1_info:'Nivel 1 — registro de tendencia', tier2_info:'Nivel 2 — en cola de triaje', tier3_info:'Nivel 3 — alerta inmediata', tier1b:'Nivel 1 — aviso a la tripulación', tier2b:'Nivel 2 — intervención de la tripulación', tier3b:'Nivel 3 — capitán + autoridades', ta_airport:'Ej. Chaqueta azul, dirección puerta B32…', ta_airborne:'Ej. Asiento de ventana, sudadera roja, parece sedado…', s3b_head:'Detalles del vuelo', s3b_sub:'De su tarjeta de embarque — usados para contactar a la tripulación', s3b_fl_label:'Su número de vuelo', s3b_seat_label:'Asiento de la persona sospechosa', s3b_row:'Fila', s3b_seat_letter:'Letra del asiento', chain1:'Reporte recibido', chain2:'Capitán notificado', chain3:'Jefe de cabina alertado', ab_head:'¿Algo le preocupa de un pasajero?', ab_sub:'Reporte discretamente. La tripulación<br>se encargará. Sin datos personales.', s4b_aircraft:'Aeronave', s4b_privacy:' · Privacidad suiza<br>Datos eliminados en 12 horas',
     s4a_head:'Recibido. Se ha notificado a seguridad del aeropuerto.',
-    s4a_info:'ZRH Safeguarding · Almacenamiento local · Privacidad suiza<br>Datos eliminados en 12 horas',
+    s4a_info:'ZRH Safeguarding · Almacenamiento local · Privacidad suiza<br>Datos personales y metadatos eliminados en 12 horas',
     s4a_contact_lbl:'¿Desea que nos comuniquemos con usted? <span class="opt-tag">Opcional</span>',
     s4a_contact_hint:'Solo si es necesario un seguimiento. No se compartirá.',
     s4a_notes_lbl:'¿Algo más que quiera contarnos? <span class="opt-tag">Opcional</span>',
@@ -1077,7 +1125,7 @@ const L = {
     bag_conf_safety:'<strong>如情况有变</strong>，请立即拨打117或联系机场工作人员。',
     done:'完成', next:'继续', send:'提交', back:'返回', tier_indicator:'项', tier_indicators:'项', tier1:'趋势记录', tier2:'等待分诊', tier3:'立即警报', tier1_info:'第1级 — 趋势记录', tier2_info:'第2级 — 等待分诊', tier3_info:'第3级 — 立即警报', tier1b:'第1级 — 通知机组', tier2b:'第2级 — 机组介入', tier3b:'第3级 — 机长+当局', ta_airport:'例如：蓝色夹克，朝B32登机口方向走…', ta_airborne:'例如：靠窗座位，红色连帽衫，看似被镇静…', s3b_head:'航班信息', s3b_sub:'来自您的登机牌 — 用于联系机组人员', s3b_fl_label:'您的航班号', s3b_seat_label:'疑似人员的座位', s3b_row:'排', s3b_seat_letter:'座位字母', chain1:'报告已收到', chain2:'机长已通知', chain3:'高级乘务员已警示', ab_head:'对某位乘客有顾虑？', ab_sub:'悄悄举报，机组人员将<br>妥善处理。不存储个人信息。', s4b_aircraft:'飞机', s4b_privacy:' · 瑞士数据保护<br>原始数据12小时内删除',
     s4a_head:'已收到。机场安保已收到通知。',
-    s4a_info:'ZRH 安全举报 · 本地存储 · 瑞士数据保护<br>原始数据将在12小时内删除',
+    s4a_info:'ZRH 安全举报 · 本地存储 · 瑞士数据保护<br>个人信息及元数据将在12小时内删除',
     s4a_contact_lbl:'是否希望我们联系您？ <span class="opt-tag">可选</span>',
     s4a_contact_hint:'仅在需要跟进时使用，不会对外共享。',
     s4a_notes_lbl:'还有其他想告诉我们的吗？ <span class="opt-tag">可选</span>',
@@ -1117,7 +1165,7 @@ const L = {
     bag_conf_safety:'<strong>अगर हालात बदलें</strong>, तो तुरंत 117 पर कॉल करें।',
     done:'हो गया', next:'आगे', send:'भेजें', back:'वापस', tier_indicator:'संकेत', tier_indicators:'संकेत', tier1:'ट्रेंड लॉग', tier2:'समीक्षा की प्रतीक्षा', tier3:'तत्काल अलर्ट', tier1_info:'टियर 1 — ट्रेंड लॉग', tier2_info:'टियर 2 — समीक्षा की प्रतीक्षा', tier3_info:'टियर 3 — तत्काल अलर्ट', tier1b:'टियर 1 — क्रू को जानकारी', tier2b:'टियर 2 — क्रू हस्तक्षेप', tier3b:'टियर 3 — कैप्टन + अधिकारी', ta_airport:'जैसे: नीली जैकेट, गेट B32 की तरफ जा रहे हैं…', ta_airborne:'जैसे: खिड़की वाली सीट, लाल हुडी, बेहोश लग रहे हैं…', s3b_head:'उड़ान विवरण', s3b_sub:'आपके बोर्डिंग पास से — क्रू तक पहुंचने के लिए', s3b_fl_label:'आपका फ्लाइट नंबर', s3b_seat_label:'संदिग्ध व्यक्ति की सीट', s3b_row:'पंक्ति', s3b_seat_letter:'सीट का अक्षर', chain1:'रिपोर्ट मिली', chain2:'कैप्टन को सूचित किया', chain3:'वरिष्ठ केबिन क्रू को अलर्ट किया', ab_head:'किसी सहयात्री को लेकर चिंतित हैं?', ab_sub:'चुपचाप रिपोर्ट करें। क्रू संभाल लेगी।<br>कोई निजी जानकारी नहीं ली जाएगी।', s4b_aircraft:'विमान', s4b_privacy:' · स्विस गोपनीयता<br>12 घंटे में डेटा हटाया जाएगा',
     s4a_head:'मिल गया। एयरपोर्ट सुरक्षा को सूचित कर दिया गया है।',
-    s4a_info:'ZRH सुरक्षा · लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन<br>12 घंटे में डेटा हटा दिया जाएगा',
+    s4a_info:'ZRH सुरक्षा · लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन<br>व्यक्तिगत जानकारी और मेटाडेटा 12 घंटे में हटा दिया जाएगा',
     s4a_contact_lbl:'क्या हम आपसे संपर्क कर सकते हैं? <span class="opt-tag">वैकल्पिक</span>',
     s4a_contact_hint:'केवल ज़रूरत पड़ने पर। किसी से साझा नहीं किया जाएगा।',
     s4a_notes_lbl:'कुछ और बताना चाहते हैं? <span class="opt-tag">वैकल्पिक</span>',
@@ -1209,9 +1257,17 @@ function closeLangPicker()   { document.getElementById('langPicker').classList.r
 document.addEventListener('click', closeLangPicker);
 
 /* ── INIT ── */
-  <!-- force deploy -->
 renderDB();
 updateTierBadge();
+
+function checkDescRequired() {
+  const ta = document.getElementById('ta-airport-notes');
+  const btn = document.getElementById('i-send-btn');
+  const ok = ta && ta.value.trim().length >= 10;
+  btn.disabled = !ok;
+  btn.style.opacity = ok ? '1' : '.45';
+  btn.style.pointerEvents = ok ? 'auto' : 'none';
+}
 </script>
 </body>
 </html>
