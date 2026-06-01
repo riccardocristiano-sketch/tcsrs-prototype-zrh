@@ -68,6 +68,13 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 .s1-head { font-size:22px; font-weight:600; color:var(--text); text-align:center; line-height:1.3; margin-bottom:10px; }
 .trust-row { display:flex; align-items:center; justify-content:center; gap:6px; font-size:11px; color:var(--text-3); margin-top:14px; flex-wrap:wrap; }
 .trust-dot { width:3px; height:3px; border-radius:50%; background:#D3D1C7; }
+.call117-link { display:block; text-align:center; font-size:12px; color:#c0392b; margin-top:14px; text-decoration:none; letter-spacing:.01em; }
+.call117-link:hover { color:#a93226; }
+.tier3-prompt { display:none; background:#fff5f5; border:1px solid #fca5a5; border-radius:var(--radius); padding:10px 14px; margin-top:8px; text-align:center; }
+.tier3-prompt.show { display:block; }
+.tier3-prompt p { font-size:12px; color:#991b1b; line-height:1.5; margin-bottom:6px; }
+.tier3-prompt a { font-size:13px; font-weight:600; color:#c0392b; text-decoration:none; display:inline-block; padding:6px 16px; border:1.5px solid #c0392b; border-radius:8px; }
+.tier3-prompt a:hover { background:#c0392b; color:#fff; }
 .ab-badge { display:inline-flex; align-items:center; gap:5px; background:var(--amber-50); border:1px solid var(--amber-100); border-radius:20px; padding:4px 10px; font-size:10px; font-weight:600; color:var(--amber-600); margin:0 auto 14px; }
 
 /* S2 */
@@ -352,11 +359,12 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
             <span id="i-t2">No personal data</span><span class="trust-dot"></span>
             <span id="i-t3">Swiss privacy</span>
           </div>
+          <a href="tel:117" id="i-call117" class="call117-link">Need immediate help? Call 117 directly.</a>
         </div>
       </div><!-- /screen-body -->
     </div><!-- /s1 -->
     <div class="screen rtype-screen" id="s_type">
-      <div class="nav-bar"><button class="back-btn blue" onclick="goTo(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="nav-bar"><button class="back-btn blue" onclick="goBack(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="rtype-header">
         <div class="rtype-head" id="i-rtype-head">What do you want to report?</div>
         <div class="rtype-sub" id="i-rtype-sub">Select the type of concern you've observed.</div>
@@ -383,7 +391,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- SBAG1: ITEM TYPE -->
     <div class="screen" id="sbag1">
-      <div class="nav-bar"><button class="back-btn amber" onclick="goTo('type')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="nav-bar"><button class="back-btn amber" onclick="goBack('type')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress"><div class="dot active am"></div><div class="dot"></div></div>
       <div class="bag-flow-hdr"><div class="bag-flow-title" id="i-bag-title">Security report</div><div class="bag-flow-sub" id="i-bag-sub">Forwarded directly to security operations</div></div>
       <div class="screen-body" style="padding-top:16px;">
@@ -401,7 +409,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- SBAG2: LOCATION -->
     <div class="screen" id="sbag2">
-      <div class="nav-bar"><button class="back-btn amber" onclick="goTo('bag1')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="nav-bar"><button class="back-btn amber" onclick="goBack('bag1')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress"><div class="dot done am"></div><div class="dot active am"></div></div>
       <div class="bag-flow-hdr"><div class="bag-flow-title">Security report</div><div class="bag-flow-sub">Forwarded directly to security operations</div></div>
       <div class="screen-body" style="padding-top:16px;">
@@ -445,7 +453,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- S2: INDICATORS (shared) -->
     <div class="screen" id="s2">
-      <div class="nav-bar"><button class="back-btn blue" id="s2back" onclick="goTo(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="nav-bar"><button class="back-btn blue" id="s2back" onclick="goBack(1)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress" id="s2prog"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="heading" style="margin-bottom:4px;" id="i-obs-q">What did you observe?</div>
@@ -461,13 +469,17 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
           <div class="obs-card" data-tier="2" onclick="toggleCard(this)"><div class="icw"><svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="5" r="3" stroke="#185FA5" stroke-width="1.4"/><path d="M3 17c0-3.31 2.69-6 6-6" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/><path d="M14 10v5M14 17v.5" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/></svg></div><span class="lbl" id="i-obs8">Adult directing a child</span></div>
         </div>
         <div class="tier-badge" id="tierBadge">Select observations above</div>
+        <div class="tier3-prompt" id="tier3Prompt">
+          <p id="i-tier3-msg">This sounds urgent — calling 117 directly will get a faster response.</p>
+          <a href="tel:117" id="i-tier3-call">Call 117</a>
+        </div>
         <button class="btn-p" id="contBtn" onclick="goTo(3)" disabled style="margin-top:6px;">Continue</button>
       </div>
     </div>
 
     <!-- S3: AIRPORT LOCATION -->
     <div class="screen" id="s3">
-      <div class="nav-bar"><button class="back-btn blue" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
+      <div class="nav-bar"><button class="back-btn blue" onclick="goBack(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button></div>
       <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="heading" style="margin-bottom:12px;" id="i-where">Where is this?</div>
@@ -495,7 +507,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- S3B: AIRBORNE FLIGHT DETAILS -->
     <div class="screen" id="s3b">
-      <div class="nav-bar"><button class="back-btn amber" onclick="goTo(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s3b-back">Back</span></button></div>
+      <div class="nav-bar"><button class="back-btn amber" onclick="goBack(2)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s3b-back">Back</span></button></div>
       <div class="progress"><div class="dot done am"></div><div class="dot done am"></div><div class="dot active am"></div><div class="dot"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="heading" style="margin-bottom:2px;" id="i-s3b-head">Flight details</div>
@@ -538,7 +550,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- S4INFO: OPTIONAL INFO (airport) -->
     <div class="screen" id="s4info">
-      <div class="nav-bar"><button class="back-btn blue" onclick="goTo(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-back-s4">Back</span></button></div>
+      <div class="nav-bar"><button class="back-btn blue" onclick="goBack(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-back-s4">Back</span></button></div>
       <div class="progress"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="opt-group">
@@ -561,7 +573,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
       <div class="screen-body" style="padding-top:20px;">
         <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px;">
           <div class="chk-ring" style="background:var(--teal-50)"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6.5 6.5L23 7" stroke="#0F6E56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="s4-head" id="i-s4a-head">Received. Airport security has been notified.</div>
+          <div class="s4-head" id="i-s4a-head">Your observation has been logged and will be reviewed by the security team.</div>
         </div>
         <div class="info-box teal" id="i-s4a-info">ZRH Safeguarding · On-premise · Swiss privacy<br>Personal information &amp; metadata deleted within 12 hours</div>
         <button class="btn-p" id="i-done-a" onclick="resetApp()" style="margin-top:20px;">Done</button>
@@ -570,7 +582,7 @@ h1 { font-size:13px; font-weight:600; color:#7a8a9a; letter-spacing:.08em; text-
 
     <!-- S4BINFO: OPTIONAL INFO (airborne) -->
     <div class="screen" id="s4binfo">
-      <div class="nav-bar"><button class="back-btn amber" onclick="goTo(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s4b-back">Back</span></button></div>
+      <div class="nav-bar"><button class="back-btn amber" onclick="goBack(3)"><svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span id="i-s4b-back">Back</span></button></div>
       <div class="progress"><div class="dot done am"></div><div class="dot done am"></div><div class="dot done am"></div><div class="dot active am"></div></div>
       <div class="screen-body" style="padding-top:10px;">
         <div class="opt-group">
@@ -744,21 +756,30 @@ function setMode(m) {
 ════════════════════════════════ */
 function sid(s) { return ROUTE[mode][s]; }
 
-function goTo(toStep) {
+function goTo(toStep, isBack=false) {
   const fromId = sid(step);
   const toId   = sid(toStep);
   if (!fromId || !toId) return;
   const from = document.getElementById(fromId);
   const to   = document.getElementById(toId);
-  from.classList.remove('active'); from.classList.add('exit');
-  to.style.transform='translateX(100%)'; to.classList.remove('back-exit','exit');
-  requestAnimationFrame(()=>{ to.classList.add('active'); to.style.transform=''; });
-  setTimeout(()=>from.classList.remove('exit'),340);
+  if (isBack) {
+    from.classList.remove('active'); from.classList.add('back-exit');
+    to.style.transform='translateX(-100%)'; to.classList.remove('back-exit','exit');
+    requestAnimationFrame(()=>{ to.classList.add('active'); to.style.transform=''; });
+    setTimeout(()=>from.classList.remove('back-exit'),340);
+  } else {
+    from.classList.remove('active'); from.classList.add('exit');
+    to.style.transform='translateX(100%)'; to.classList.remove('back-exit','exit');
+    requestAnimationFrame(()=>{ to.classList.add('active'); to.style.transform=''; });
+    setTimeout(()=>from.classList.remove('exit'),340);
+  }
   step = toStep;
   updateLabel();
   if (toStep===3) { updTierInfo(); updTierInfoB(); }
   if (toStep===5 && mode==='airborne') fillAirborneConfirm();
 }
+
+function goBack(toStep) { goTo(toStep, true); }
 
 function startFlow() {
   if (mode === 'airport') goTo('type');
@@ -812,8 +833,9 @@ function calcTier(n){ return n>=3?3:mxTier()>=2?2:1; }
 
 function updateTierBadge(){
   const n=nSel(), badge=document.getElementById('tierBadge'), btn=document.getElementById('contBtn');
+  const prompt=document.getElementById('tier3Prompt');
   const tl=L[curLang];
-  if(!n){ badge.textContent=tl.select_above||'Select observations above'; badge.style.cssText=''; btn.disabled=true; return; }
+  if(!n){ badge.textContent=tl.select_above||'Select observations above'; badge.style.cssText=''; btn.disabled=true; if(prompt) prompt.classList.remove('show'); return; }
   const t=calcTier(n);
   const msgs  =['',tl.tier1,tl.tier2,tl.tier3];
   const colors=['','#E6F1FB','#fef3c7','#fee2e2'];
@@ -822,6 +844,7 @@ function updateTierBadge(){
   const ind = n===1 ? (tl.tier_indicator||'indicator') : (tl.tier_indicators||'indicators');
   badge.textContent=`${n} ${ind} · Tier ${t} — ${msgs[t]}`;
   badge.style.background=colors[t]; badge.style.borderColor=bords[t]; badge.style.color=txts[t];
+  if(prompt) prompt.classList.toggle('show', t===3);
   btn.disabled=false;
 }
 
@@ -1007,7 +1030,7 @@ const L = {
     tier1:'Trend log', tier2:'Queued for triage', tier3:'Immediate alert',
     tier1_info:'Tier 1 — trend log', tier2_info:'Tier 2 — queued for triage', tier3_info:'Tier 3 — immediate alert',
     tier1b:'Tier 1 — crew awareness', tier2b:'Tier 2 — crew intervention', tier3b:'Tier 3 — captain + authorities',
-    s4a_head:'Received. Airport security has been notified.',
+    s4a_head:'Your observation has been logged and will be reviewed by the security team.',
     s4a_info:'ZRH Safeguarding · On-premise · Swiss privacy<br>Personal information &amp; metadata deleted within 12 hours',
     s4a_contact_lbl:'Do you want us to contact you? <span class="opt-tag">Optional</span>',
     s4a_contact_hint:'Only used if follow-up is needed. Never shared.',
@@ -1019,6 +1042,9 @@ const L = {
     s4b_chain4:'Destination airport pre-notified on landing',
     s4b_notes_lbl:'Anything else for the crew? <span class="opt-tag">Optional</span>',
     s4b_notes_hint:'Clothing, seat neighbours, behaviour, etc.',
+    call_117:'Need immediate help? Call 117 directly.',
+    tier3_msg:'This sounds urgent — calling 117 directly will get a faster response.',
+    tier3_call:'Call 117',
   },
   de:{
     // Natural Swiss German register — formal but direct, as you'd see in ZRH signage
@@ -1046,7 +1072,7 @@ const L = {
     bag_conf_info:'Direktalarm · Sicherheitsdienst<br>Lokal gespeichert · Schweizer Datenschutz',
     bag_conf_safety:'<strong>Falls sich die Situation verändert</strong>, rufen Sie sofort 117 an.',
     done:'Fertig', next:'Weiter', send:'Absenden', back:'Zurück', tier_indicator:'Indikator', tier_indicators:'Indikatoren', tier1:'Trendsignal', tier2:'In Triage-Warteschlange', tier3:'Sofortiger Alarm', tier1_info:'Tier 1 — Trendsignal', tier2_info:'Tier 2 — In Triage-Warteschlange', tier3_info:'Tier 3 — Sofortiger Alarm', tier1b:'Tier 1 — Crew informiert', tier2b:'Tier 2 — Crew greift ein', tier3b:'Tier 3 — Kapitän + Behörden', ta_airport:'z.B. Blaue Jacke, Richtung Gate B32…', ta_airborne:'z.B. Fensterplatz, roter Hoodie, wirkt sediert…', s3b_head:'Flugdetails', s3b_sub:'Von Ihrer Bordkarte — wird verwendet, um die Crew zu erreichen', s3b_fl_label:'Ihre Flugnummer', s3b_seat_label:'Sitz der verdächtigen Person', s3b_row:'Reihe', s3b_seat_letter:'Platzbuchstabe', chain1:'Meldung erhalten', chain2:'Kapitän informiert', chain3:'Leitende Kabinenbesatzung alarmiert', ab_head:'Etwas bei einem Mitreisenden beobachtet?', ab_sub:'Diskret melden. Die Crew kümmert sich.<br>Keine persönlichen Daten gespeichert.', s4b_aircraft:'Flugzeug', s4b_privacy:' · Schweizer Datenschutz<br>Rohdaten nach 12 Stunden gelöscht',
-    s4a_head:'Meldung erhalten. Der Sicherheitsdienst wurde informiert.',
+    s4a_head:'Ihre Beobachtung wurde erfasst und wird vom Sicherheitsteam geprüft.',
     s4a_info:'ZRH Safeguarding · Lokal gespeichert · Schweizer Datenschutz<br>Persönliche Daten &amp; Metadaten werden nach 12 Stunden gelöscht',
     s4a_contact_lbl:'Dürfen wir Sie kontaktieren? <span class="opt-tag">Optional</span>',
     s4a_contact_hint:'Nur bei Rückfragen. Wird nicht weitergegeben.',
@@ -1058,6 +1084,9 @@ const L = {
     s4b_chain4:'Zielflughafen wird vor der Landung vorinformiert',
     s4b_notes_lbl:'Noch etwas für die Crew? <span class="opt-tag">Optional</span>',
     s4b_notes_hint:'Kleidung, Sitznachbarn, Verhalten usw.',
+    call_117:'Sofortige Hilfe nötig? Direkt 117 anrufen.',
+    tier3_msg:'Das klingt dringend — ein direkter Anruf bei 117 führt schneller zur Hilfe.',
+    tier3_call:'117 anrufen',
   },
   es:{
     // Latin American neutral Spanish — works for ZRH's international mix
@@ -1085,7 +1114,7 @@ const L = {
     bag_conf_info:'Alerta directa · Seguridad del aeropuerto<br>Almacenamiento local · Privacidad suiza',
     bag_conf_safety:'<strong>Si la situación cambia</strong>, llame al 117 o avise al personal inmediatamente.',
     done:'Listo', next:'Siguiente', send:'Enviar', back:'Volver', tier_indicator:'indicador', tier_indicators:'indicadores', tier1:'Registro de tendencia', tier2:'En cola de triaje', tier3:'Alerta inmediata', tier1_info:'Nivel 1 — registro de tendencia', tier2_info:'Nivel 2 — en cola de triaje', tier3_info:'Nivel 3 — alerta inmediata', tier1b:'Nivel 1 — aviso a la tripulación', tier2b:'Nivel 2 — intervención de la tripulación', tier3b:'Nivel 3 — capitán + autoridades', ta_airport:'Ej. Chaqueta azul, dirección puerta B32…', ta_airborne:'Ej. Asiento de ventana, sudadera roja, parece sedado…', s3b_head:'Detalles del vuelo', s3b_sub:'De su tarjeta de embarque — usados para contactar a la tripulación', s3b_fl_label:'Su número de vuelo', s3b_seat_label:'Asiento de la persona sospechosa', s3b_row:'Fila', s3b_seat_letter:'Letra del asiento', chain1:'Reporte recibido', chain2:'Capitán notificado', chain3:'Jefe de cabina alertado', ab_head:'¿Algo le preocupa de un pasajero?', ab_sub:'Reporte discretamente. La tripulación<br>se encargará. Sin datos personales.', s4b_aircraft:'Aeronave', s4b_privacy:' · Privacidad suiza<br>Datos eliminados en 12 horas',
-    s4a_head:'Recibido. Se ha notificado a seguridad del aeropuerto.',
+    s4a_head:'Su observación ha sido registrada y será revisada por el equipo de seguridad.',
     s4a_info:'ZRH Safeguarding · Almacenamiento local · Privacidad suiza<br>Datos personales y metadatos eliminados en 12 horas',
     s4a_contact_lbl:'¿Desea que nos comuniquemos con usted? <span class="opt-tag">Opcional</span>',
     s4a_contact_hint:'Solo si es necesario un seguimiento. No se compartirá.',
@@ -1097,6 +1126,9 @@ const L = {
     s4b_chain4:'Aeropuerto de destino prenotificado antes del aterrizaje',
     s4b_notes_lbl:'¿Algo más para la tripulación? <span class="opt-tag">Opcional</span>',
     s4b_notes_hint:'Ropa, vecinos de asiento, comportamiento, etc.',
+    call_117:'¿Necesita ayuda inmediata? Llame al 117.',
+    tier3_msg:'Esto parece urgente — llamar al 117 directamente obtendrá una respuesta más rápida.',
+    tier3_call:'Llamar al 117',
   },
   zh:{
     // Mainland Simplified Chinese — formal but accessible register
@@ -1124,7 +1156,7 @@ const L = {
     bag_conf_info:'直接警报 · 机场安保<br>本地存储 · 符合瑞士数据保护法',
     bag_conf_safety:'<strong>如情况有变</strong>，请立即拨打117或联系机场工作人员。',
     done:'完成', next:'继续', send:'提交', back:'返回', tier_indicator:'项', tier_indicators:'项', tier1:'趋势记录', tier2:'等待分诊', tier3:'立即警报', tier1_info:'第1级 — 趋势记录', tier2_info:'第2级 — 等待分诊', tier3_info:'第3级 — 立即警报', tier1b:'第1级 — 通知机组', tier2b:'第2级 — 机组介入', tier3b:'第3级 — 机长+当局', ta_airport:'例如：蓝色夹克，朝B32登机口方向走…', ta_airborne:'例如：靠窗座位，红色连帽衫，看似被镇静…', s3b_head:'航班信息', s3b_sub:'来自您的登机牌 — 用于联系机组人员', s3b_fl_label:'您的航班号', s3b_seat_label:'疑似人员的座位', s3b_row:'排', s3b_seat_letter:'座位字母', chain1:'报告已收到', chain2:'机长已通知', chain3:'高级乘务员已警示', ab_head:'对某位乘客有顾虑？', ab_sub:'悄悄举报，机组人员将<br>妥善处理。不存储个人信息。', s4b_aircraft:'飞机', s4b_privacy:' · 瑞士数据保护<br>原始数据12小时内删除',
-    s4a_head:'已收到。机场安保已收到通知。',
+    s4a_head:'您的举报已记录，安保团队将进行审查。',
     s4a_info:'ZRH 安全举报 · 本地存储 · 瑞士数据保护<br>个人信息及元数据将在12小时内删除',
     s4a_contact_lbl:'是否希望我们联系您？ <span class="opt-tag">可选</span>',
     s4a_contact_hint:'仅在需要跟进时使用，不会对外共享。',
@@ -1136,6 +1168,9 @@ const L = {
     s4b_chain4:'飞机降落前将提前通知目的地机场',
     s4b_notes_lbl:'还有其他要告诉机组的吗？ <span class="opt-tag">可选</span>',
     s4b_notes_hint:'如衣着、邻座情况、行为举止等。',
+    call_117:'需要立即帮助？直接拨打117。',
+    tier3_msg:'情况紧急 — 直接拨打117可获得更快响应。',
+    tier3_call:'拨打117',
   },
   hi:{
     // Hindustani register — conversational, avoids overly formal Sanskrit-heavy words
@@ -1164,7 +1199,7 @@ const L = {
     bag_conf_info:'सीधा अलर्ट · सुरक्षा दल<br>लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन',
     bag_conf_safety:'<strong>अगर हालात बदलें</strong>, तो तुरंत 117 पर कॉल करें।',
     done:'हो गया', next:'आगे', send:'भेजें', back:'वापस', tier_indicator:'संकेत', tier_indicators:'संकेत', tier1:'ट्रेंड लॉग', tier2:'समीक्षा की प्रतीक्षा', tier3:'तत्काल अलर्ट', tier1_info:'टियर 1 — ट्रेंड लॉग', tier2_info:'टियर 2 — समीक्षा की प्रतीक्षा', tier3_info:'टियर 3 — तत्काल अलर्ट', tier1b:'टियर 1 — क्रू को जानकारी', tier2b:'टियर 2 — क्रू हस्तक्षेप', tier3b:'टियर 3 — कैप्टन + अधिकारी', ta_airport:'जैसे: नीली जैकेट, गेट B32 की तरफ जा रहे हैं…', ta_airborne:'जैसे: खिड़की वाली सीट, लाल हुडी, बेहोश लग रहे हैं…', s3b_head:'उड़ान विवरण', s3b_sub:'आपके बोर्डिंग पास से — क्रू तक पहुंचने के लिए', s3b_fl_label:'आपका फ्लाइट नंबर', s3b_seat_label:'संदिग्ध व्यक्ति की सीट', s3b_row:'पंक्ति', s3b_seat_letter:'सीट का अक्षर', chain1:'रिपोर्ट मिली', chain2:'कैप्टन को सूचित किया', chain3:'वरिष्ठ केबिन क्रू को अलर्ट किया', ab_head:'किसी सहयात्री को लेकर चिंतित हैं?', ab_sub:'चुपचाप रिपोर्ट करें। क्रू संभाल लेगी।<br>कोई निजी जानकारी नहीं ली जाएगी।', s4b_aircraft:'विमान', s4b_privacy:' · स्विस गोपनीयता<br>12 घंटे में डेटा हटाया जाएगा',
-    s4a_head:'मिल गया। एयरपोर्ट सुरक्षा को सूचित कर दिया गया है।',
+    s4a_head:'आपकी रिपोर्ट दर्ज हो गई है और सुरक्षा टीम इसकी समीक्षा करेगी।',
     s4a_info:'ZRH सुरक्षा · लोकल स्टोरेज · स्विस डेटा प्रोटेक्शन<br>व्यक्तिगत जानकारी और मेटाडेटा 12 घंटे में हटा दिया जाएगा',
     s4a_contact_lbl:'क्या हम आपसे संपर्क कर सकते हैं? <span class="opt-tag">वैकल्पिक</span>',
     s4a_contact_hint:'केवल ज़रूरत पड़ने पर। किसी से साझा नहीं किया जाएगा।',
@@ -1176,6 +1211,9 @@ const L = {
     s4b_chain4:'लैंडिंग से पहले गंतव्य हवाई अड्डे को सूचित किया जाएगा',
     s4b_notes_lbl:'क्रू के लिए कुछ और? <span class="opt-tag">वैकल्पिक</span>',
     s4b_notes_hint:'जैसे कपड़े, बगल की सीट, व्यवहार आदि।',
+    call_117:'तुरंत मदद चाहिए? 117 पर कॉल करें।',
+    tier3_msg:'यह गंभीर लग रहा है — 117 पर सीधे कॉल करने से तेज़ प्रतिक्रिया मिलेगी।',
+    tier3_call:'117 पर कॉल करें',
   },
 };
 
@@ -1214,6 +1252,8 @@ const I18N_MAP = {
   'i-s4b-head':'s4b_head','i-s4b-sub':'s4b_sub',
   'i-s4b-chain-title':'s4b_chain_title','i-s4b-chain4':'s4b_chain4',
   'i-s4b-notes-lbl':'s4b_notes_lbl','i-s4b-notes-hint':'s4b_notes_hint',
+  'i-call117':'call_117',
+  'i-tier3-msg':'tier3_msg','i-tier3-call':'tier3_call',
 };
 
 function setLang(l) {
